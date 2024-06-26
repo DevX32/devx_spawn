@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
+
+body {
+  user-select: none;
+  overflow: hidden;
+  font-family: 'Roboto'
+}
+
+.nui-wrapper {
+  position: absolute;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.nui-wrapper.true {
+  animation: SlideUpBig 1s;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+}
+
+.nui-wrapper.false {
+  animation: SlideDownBig 1s;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+}
+
+@keyframes SlideUpBig {
+  0% { top: -1080px; }
+  100% { top: 0px; }
+}
+
+@keyframes SlideDownBig {
+  0% { top: 0px; }
+  100% { top: -1080px; }
+}
+
+.map-shell {
+  background: hsl(220, 17%, 37%);
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5));
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map {
+  height: 882px;
+  width: 1432px;
+  position: relative;
+	object-fit: cover;
+  overflow: hidden;
+}
+
+.img-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 882px;
+  width: 1432px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.locations {
+  height: 882px;
+  width: 1432px;
+  position: absolute;
+  color: rgb(69, 156, 233);
+}
+
+.location-pin {
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  border-radius: 5px;
+  transform: rotate(45deg);
+  transition: all 0.3s;
+  box-shadow: 0px 0px 12px 2px rgb(82, 107, 121);
+  border: 5px solid hsl(220, 17%, 37%);
+
+  -webkit-box-shadow: inset 0px 0px 0.5em 0px hsl(220, 17%, 37%), 0px 0px 0.5em 0px hsl(220, 17%, 37%);
+  -moz-box-shadow: inset 0px 0px 0.5em 0px hsl(220, 17%, 37%), 0px 0px 0.5em 0px hsl(220, 17%, 37%);
+  box-shadow: inset 0px 0px 0.5em 0px hsl(220, 17%, 37%), 0px 0px 0.5em 0px hsl(220, 17%, 37%);
+}
+
+.location-pin:hover {
+  border: solid 5px #424242be;
+}
+
+.decision-wrapper {
+  position: absolute;
+  color: white;
+  background: #424242b9;
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5));
+  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.decision-wrapper.true {
+  animation: SlideUp 1s;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+}
+
+.decision-wrapper.false {
+  animation: SlideDown 1s;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+}
+
+@keyframes SlideUp {
+  0% { top: -150%; }
+  100% { top: 50%; }
+}
+
+@keyframes SlideDown {
+  0% { top: 50%; }
+  100% { top: -150%; }
+}
+
+.decision-title {
+  font-size: 28px;
+}
+
+.decision-desc {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+}
+
+.decision-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 15px;
+  column-gap: 20px;
+}
+
+.last-location {
+  position: absolute;
+  right: 255px;
+  bottom: 112.5px;
+  transition: all 0.5s;
+}
+
+
+.tooltip-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  row-gap: 4px;
+}
+
+.tt-title {
+  font-size: 16px;
+}
+
+.tt-button {
+  padding: 6px 0px;
+  width: 100px;
+  background: #424242b9;
+  font-size: 12px;
+  text-align: center;
+  border-radius: 2.5px;
+  transition: all 0.25s;
+}
+
+.tt-button:hover {
+  opacity: 0.8;
+}
+
+.tt-button:active {
+  opacity: 0.6;
+}
+
+.information {
+  position: absolute;
+  height: 80px;
+  width: 675px;
+  background: #424242be;
+  filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5));
+  border-radius: 10px;
+  z-index: 2;
+  top: 110px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 10px;
+}
+
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: white;
+}
+
+.title {
+  font-size: 14px;
+}
+
+.desc {
+  font-size: 12px;
+  opacity: 0.8;
+}

@@ -78,7 +78,7 @@ body {
   position: absolute;
   height: 20px;
   width: 20px;
-  background-color: hsl(220, 17%, 37%);
+  background: rgb(33,33,33);
   border-radius: 50% 50% 0 50%;
   border: 2px solid hsl(220, 17%, 37%);
   transform: rotate(45deg);
@@ -99,7 +99,7 @@ body {
 
 .location-pin:hover {
   box-shadow: 0px 0px 18px 4px rgba(66, 66, 66, 0.75);
-  background-color: #34754e;
+  background-color: linear-gradient(115deg, #5b1dbf, #212121, #212121);
   border-color: #212121;
 }
 
@@ -118,9 +118,10 @@ body {
 .decision-wrapper {
   position: absolute;
   color: white;
-  background: #212121;
+  background: rgba(33, 33, 33, 0.8);
   filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5));
   padding-bottom: 20px;
+  border: 2px solid hsl(220, 17%, 37%);
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
@@ -154,11 +155,16 @@ body {
 }
 
 .decision-title {
-  font-size: 28px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #37aae7;
 }
 
 .decision-desc {
-  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 20px;
+  color: #D1D2D2;
   font-size: 18px;
 }
 
@@ -172,8 +178,8 @@ body {
 
 .last-location {
   position: absolute;
-  right: 240px;
-  bottom: 60px;
+  right: 225px;
+  bottom: 50px;
   transition: all 0.5s;
 }
 
@@ -214,6 +220,7 @@ body {
   left: 225px;
   width: 220px;
   background: #212121;
+  border: 2px solid hsl(220, 17%, 37%);
   filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.5));
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

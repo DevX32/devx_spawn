@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles.css';
 import { debugData } from "../utils/debugData";
 import { useNuiEvent } from "../hooks/useNuiEvent";
-import map from './images/map2.png';
+import map from './images/map.png';
 import { fetchNui } from '../utils/fetchNui';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -15,6 +15,13 @@ interface LocationsInterface {
   left: number,
   label: string
 }
+
+// interface ImagesInterface {
+//   top: number,
+//   left: number,
+//   label: string,
+//   // Images: string,
+// }
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -38,10 +45,11 @@ const App: React.FC = () => {
     y: 0,
     z: 0,
   });
+
   const [locations, setLocations] = useState<LocationsInterface[]>([
     {
-      top: 670,
-      left: 1080,
+      top: 660,
+      left: 1060,
       label: 'Pier',
     },
     {
@@ -50,21 +58,30 @@ const App: React.FC = () => {
       label: 'Richman Hotel',
     },
     {
-      top: 265,
-      left: 528,
+      top: 280,
+      left: 530,
       label: 'Sandy Shores',
     },
     {
       top: 490,
-      left: 220,
+      left: 260,
       label: 'Paleto Bay',
     },
     {
-      top: 340,
-      left: 1020,
+      top: 360,
+      left: 1000,
       label: 'Mirror Park',
     },
-  ]);  
+  ]);
+
+  // const [Images, setLocImages] = useState<ImagesInterface[]>([
+  //  {
+  //   top: 670,
+  //   left: 1000,
+  //   label: "Pier",
+  //   // image: Src,
+  //  },
+  // ]);
 
   useNuiEvent('setVisible', (data) => {
     setShow(data);
@@ -73,6 +90,10 @@ const App: React.FC = () => {
   useNuiEvent('setLocations', (data) => {
     setLocations(data);
   });
+
+  // useNuiEvent('setLocImages', (data) =>{
+  //   setLocImages(data);
+  // });
 
   const spawn = (data: any) => {
     setVisible(false);
@@ -173,15 +194,14 @@ const App: React.FC = () => {
         ))}
       </div>
       <div className={`decision-wrapper ${visible}`} style={{ visibility: hidden ? 'hidden' : 'visible' }}>
+        <div className='decision-desc'>Are You Sure You Want To Spawn At</div>
         <div className='decision-title'>{chosenData.label}</div>
-        <div className='decision-desc'>Are you sure you want to spawn here?</div>
         <div className='decision-button-wrapper'>
-          <Button className='button' variant="contained" onClick={() => spawn(chosenData)} style={{ fontFamily: 'Roboto', background: '#37b24d' }}>Spawn</Button>
-          <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', background: '#f03e3e' }}>Cancel</Button>
+          <Button className='button' variant="contained" onClick={() => spawn(chosenData)} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', background: '#37b24d' }}>Spawn</Button>
+          <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', background: '#f03e3e' }}>Cancel</Button>
         </div>
       </div>
-      <div className='last-location'><Button color="info" style={{ width: '200px', height: '50px', fontSize: '18px', fontFamily: 'Roboto', background: '#212121' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>
-    </div>
+      <div className='last-location'><Button color="info" style={{ width: '200px', height: '50px', border: "2px solid hsl(220, 17%, 37%)", fontSize: '18px', fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif", background: '#212121' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>   </div>
   );
 }
 

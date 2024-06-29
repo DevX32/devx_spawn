@@ -16,13 +16,6 @@ interface LocationsInterface {
   label: string
 }
 
-// interface ImagesInterface {
-//   top: number,
-//   left: number,
-//   label: string,
-//   // Images: string,
-// }
-
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -74,15 +67,6 @@ const App: React.FC = () => {
     },
   ]);
 
-  // const [Images, setLocImages] = useState<ImagesInterface[]>([
-  //  {
-  //   top: 670,
-  //   left: 1000,
-  //   label: "Pier",
-  //   // image: Src,
-  //  },
-  // ]);
-
   useNuiEvent('setVisible', (data) => {
     setShow(data);
   });
@@ -90,10 +74,6 @@ const App: React.FC = () => {
   useNuiEvent('setLocations', (data) => {
     setLocations(data);
   });
-
-  // useNuiEvent('setLocImages', (data) =>{
-  //   setLocImages(data);
-  // });
 
   const spawn = (data: any) => {
     setVisible(false);
@@ -135,6 +115,7 @@ const App: React.FC = () => {
 
   return (
     <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
+      <div className="centered-text">Welcome To DevX Networkz</div>
       <div className='information'>
         <div className='infoRow'>
           <svg xmlns="http://www.w3.org/2000/svg" width='30' height='30' fill='white' viewBox="0 0 512 512">
@@ -165,7 +146,7 @@ const App: React.FC = () => {
         </div>
         <div className='infoRow'>
           <svg xmlns="http://www.w3.org/2000/svg" width='30' height='30' fill='white' viewBox="0 0 320 512">
-            <path d="M160 64c-26.5 0-48 21.5-48 48V276.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5V112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112V276.5c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6V112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3V144c0-8.8 7.2-16 16-16s16 7.2 16 16V322.7c18.6 6.6 32 24.4 32 45.3z" />
+          <path d="M160 64c-26.5 0-48 21.5-48 48V276.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5V112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112V276.5c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6V112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3V144c0-8.8 7.2-16 16-16s16 7.2 16 16V322.7c18.6 6.6 32 24.4 32 45.3z" />
           </svg>
           <div className='infoColumn'>
             <div className='title'>{infoData.temp} °C</div>
@@ -175,7 +156,7 @@ const App: React.FC = () => {
       </div>
       <div className='map-shell'>
         <div className='img-wrapper'>
-          <img src={map} className='map' alt='Map'/>
+          <img src={map} className='map' alt='Map' />
         </div>
       </div>
       <div className='locations'>
@@ -201,7 +182,8 @@ const App: React.FC = () => {
           <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', background: '#f03e3e' }}>Cancel</Button>
         </div>
       </div>
-      <div className='last-location'><Button color="info" style={{ width: '200px', height: '50px', border: "2px solid hsl(220, 17%, 37%)", fontSize: '18px', fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif", background: '#212121' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>   </div>
+      <div className='last-location'><Button color="info" style={{ width: '200px', height: '50px', border: "2px solid hsl(220, 17%, 37%)", fontSize: '20px', fontFamily: "DEVX32", background: '#212121' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>
+    </div>
   );
 }
 

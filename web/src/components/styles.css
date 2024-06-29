@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
+@font-face {
+  font-family: 'devx32';
+  src: url('fonts/a_RubricaXtCn.ttf') format('woff2')
+}
 
 body {
   user-select: none;
@@ -67,6 +70,20 @@ body {
   border-radius: 5px;
 }
 
+.centered-text {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'devx32';
+  font-size: 40px;
+  gap: 10pxs;
+  color: rgb(33, 33, 33);  
+  font-style: italic;
+  z-index: 10;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .locations {
   height: 882px;
   width: 1432px;
@@ -78,7 +95,7 @@ body {
   position: absolute;
   height: 20px;
   width: 20px;
-  background: rgb(33,33,33);
+  background: rgb(33, 33, 33); 
   border-radius: 50% 50% 0 50%;
   border: 2px solid hsl(220, 17%, 37%);
   transform: rotate(45deg);

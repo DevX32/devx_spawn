@@ -17,9 +17,6 @@ elseif GetResourceState('es_extended') == 'started' then
     TriggerEvent('esx:getSharedObject', function(obj) CoreObject = obj end)
 elseif GetResourceState('qbx_core') == 'started' then
     CoreName = 'qbox'
-elseif GetResourceState('ox_core') == 'started' then
-    CoreName = 'ox'
-    CoreObject = exports['ox_core']:GetCoreObject()
 else
     print("No core framework detected")
 end
@@ -31,8 +28,6 @@ local function getPlayerData()
         return CoreObject.GetPlayerData()
     elseif CoreName == 'qbox' then
         return QBX.playerData
-    elseif CoreName == 'ox' then
-        return CoreObject.GetPlayerData()
     end
 end
 

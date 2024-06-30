@@ -70,13 +70,27 @@ body {
   border-radius: 5px;
 }
 
-.centered-text {
+.devx32-text {
   position: absolute;
-  top: 50px;
-  left: 50%;
+  top: 70px;
+  left: 19%;
   transform: translateX(-50%);
   font-family: 'devx32';
-  font-size: 40px;
+  font-size: 25PX;
+  gap: 10pxs;
+  color: rgb(33, 33, 33);  
+  font-style: italic;
+  z-index: 10;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.devx32-text2 {
+  position: absolute;
+  top: 90px;
+  left: 20%;
+  transform: translateX(-50%);
+  font-family: 'devx32';
+  font-size: 60px;
   gap: 10pxs;
   color: rgb(33, 33, 33);  
   font-style: italic;
@@ -104,6 +118,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .location-pin::before {
@@ -173,12 +188,14 @@ body {
 
 .decision-title {
   font-size: 20px;
+  font-style: italic;
   font-weight: bold;
   color: #37aae7;
 }
 
 .decision-desc {
   text-transform: uppercase;
+  font-style: italic;
   font-weight: bold;
   font-size: 20px;
   color: #D1D2D2;
@@ -210,10 +227,14 @@ body {
 }
 
 .tt-title {
+  font-weight: bold;
+  font-style: italic;
   font-size: 16px;
 }
 
 .tt-button {
+  font-style: italic;
+  font-weight: bold;
   padding: 6px 0px;
   width: 100px;
   background: #212121;

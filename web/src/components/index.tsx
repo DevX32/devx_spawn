@@ -115,7 +115,8 @@ const App: React.FC = () => {
 
   return (
     <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
-      <div className="centered-text">Welcome To DevX Networkz</div>
+    <div className="devx32-text">CHOOSE WHERE TO APPEAR</div>
+      <div className="devx32-text2">SPAWN SELECT</div>
       <div className='information'>
         <div className='infoRow'>
           <svg xmlns="http://www.w3.org/2000/svg" width='30' height='30' fill='white' viewBox="0 0 512 512">

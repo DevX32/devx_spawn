@@ -191,8 +191,8 @@ const App: React.FC = () => {
         <div className='decision-desc'>Are You Sure You Want To Spawn At</div>
         <div className='decision-title'>{chosenData.label}</div>
         <div className='decision-button-wrapper'>
-          <Button className='button' variant="contained" onClick={() => spawn(chosenData)} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', background: '#37b24d' }}>Spawn</Button>
-          <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', background: '#f03e3e' }}>Cancel</Button>
+          <Button className='button' variant="contained" onClick={() => spawn(chosenData)} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', color: '#A5D8FF', background: '#1A2D3F' }}>Spawn</Button>
+          <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', color: '#FFFFFF', background: '#25262B' }}>Cancel</Button>
         </div>
       </div>
       <div className='last-location'><Button color="info" style={{ width: '200px', height: '50px', border: "2px solid hsl(220, 17%, 37%)", fontSize: '20px', fontFamily: "DEVX32", background: '#212121' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>

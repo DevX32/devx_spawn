@@ -6,5 +6,5 @@ AddEventHandler('sendDateTimeToClient', function(source)
     local dayOfWeek = daysOfWeek[currentDate.wday]
     local month = months[currentDate.month]
     local dateString = string.format("%s, %s %d", dayOfWeek, month, currentDate.day)
-    TriggerClientEvent('receiveDateTime', -1, dateString)  -- Send date/time to all clients
+    TriggerClientEvent('receiveDateTime', -1, dateString)
 end)

@@ -1,11 +1,11 @@
-local camZPlus1       = 1000
-local camZPlus2       = 50
-local pointCamCoords  = 75
+local camZPlus1 = 1000
+local camZPlus2 = 50
+local pointCamCoords = 75
 local pointCamCoords2 = 0
-local cam1Time        = 500
-local cam2Time        = 1000
-local lastLocation   = nil
-local Locations = require'shared.config'
+local cam1Time = 500
+local cam2Time = 1000
+local lastLocation = nil
+local Locations = require 'shared.config'
 
 if GetResourceState('qb-core') == 'started' then
     CoreName = 'qb'
@@ -26,6 +26,8 @@ local function getPlayerData()
         return CoreObject.GetPlayerData()
     elseif CoreName == 'qbox' then
         return QBX.playerData
+    else
+        return nil
     end
 end
 
@@ -41,7 +43,9 @@ RegisterNetEvent('devx_spawn:client:openUI', function()
     toggleNuiFrame(true)
     SendReactMessage('setLocations', Locations)
     local playerData = getPlayerData()
-    lastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)
+    if playerData then
+        lastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)
+    end
     camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(camera, true)
     RenderScriptCams(true, false, 1, true, true)
@@ -95,7 +99,7 @@ function InitialSetup()
 end
 
 function SetCam(campos)
-    cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00, 0.00, 0.00, 110.00, false, 0)
+    local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00, 0.00, 0.00, 110.00, false, 0)
     PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords)
     SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
     if DoesCamExist(cam) then
@@ -119,11 +123,11 @@ function SetCam(campos)
     DoScreenFadeIn(250)
 end
 
-function round(number)
+local function round(number)
     return math.floor(number + 0.5)
 end
 
-function getCurrentTime()
+local function getCurrentTime()
     local hour = GetClockHours()
     local minute = GetClockMinutes()
     local ampm = "AM"
@@ -136,7 +140,7 @@ function getCurrentTime()
     return string.format("%02d:%02d %s", hour, minute, ampm)
 end
 
-function getCurrentWeatherInfo()
+local function getCurrentWeatherInfo()
     local weatherId = GetPrevWeatherTypeHashName()
     local weatherName = "Unknown"
     local temperature = 0
@@ -175,7 +179,7 @@ function getCurrentWeatherInfo()
 end
 
 RegisterNetEvent('receiveDateTime', function(dateString)
-    weather, temp = getCurrentWeatherInfo()
+    local weather, temp = getCurrentWeatherInfo()
     local info = {
         time = getCurrentTime(),
         date = dateString,

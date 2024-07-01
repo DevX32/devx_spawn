@@ -13,17 +13,21 @@ debugData([{ action: 'setVisible', data: { visible: true } }]);
 interface LocationsInterface {
   top: number,
   left: number,
-  label: string
+  label: string,
+  description: string,
 }
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: '#424242be',
+    backgroundColor: '#212121',
+    border: '2px solid hsl(220, 17%, 37%)',
+    borderRadius: '2px',
     color: 'white',
     maxWidth: 220,
     fontSize: '14px',
+    padding: '10px'
   },
 }));
 
@@ -44,26 +48,31 @@ const App: React.FC = () => {
       top: 660,
       left: 1060,
       label: 'Pier',
+      description: 'A beautiful pier with scenic views.'
     },
     {
       top: 612,
       left: 920,
       label: 'Richman Hotel',
+      description: 'A luxurious hotel with all the amenities.'
     },
     {
       top: 280,
       left: 530,
       label: 'Sandy Shores',
+      description: 'A quiet desert town with a small population.'
     },
     {
       top: 490,
       left: 260,
       label: 'Paleto Bay',
+      description: 'A coastal town with beautiful beaches.'
     },
     {
       top: 360,
       left: 1000,
       label: 'Mirror Park',
+      description: 'A trendy neighborhood with a great park.'
     },
   ]);
 
@@ -115,7 +124,7 @@ const App: React.FC = () => {
 
   return (
     <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
-    <div className="devx32-text">CHOOSE WHERE TO APPEAR</div>
+      <div className="devx32-text">CHOOSE WHERE TO APPEAR</div>
       <div className="devx32-text2">SPAWN SELECT</div>
       <div className='information'>
         <div className='infoRow'>
@@ -164,12 +173,15 @@ const App: React.FC = () => {
         {locations && locations.map((data: any, key: number) => (
           <HtmlTooltip
             key={key}
-            title={<React.Fragment>
-              <div className='tooltip-wrapper'>
-                <div className='tt-title'>{data.label}</div>
-                <div className='tt-button' onClick={() => { spawn(data) }}>Spawn</div>
-              </div>
-            </React.Fragment>}
+            title={
+              <React.Fragment>
+                <div className='tooltip-wrapper'>
+                  <div className='tt-title'>{data.label}</div>
+                  <div className='tt-description'>{data.description}</div>
+                  <div className='tt-button' onClick={() => { spawn(data) }}>Spawn</div>
+                </div>
+              </React.Fragment>
+            }
           >
             <div className='location-pin' style={{ top: `${data.top}px`, left: `${data.left}px` }} />
           </HtmlTooltip>

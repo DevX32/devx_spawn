@@ -4,10 +4,8 @@ local pointCamCoords  = 75
 local pointCamCoords2 = 0
 local cam1Time        = 500
 local cam2Time        = 1000
-local _LastLocation   = nil
-
-local CoreName = nil
-local CoreObject = nil
+local lastLocation   = nil
+local Locations = require'shared.config'
 
 if GetResourceState('qb-core') == 'started' then
     CoreName = 'qb'
@@ -43,7 +41,7 @@ RegisterNetEvent('devx_spawn:client:openUI', function()
     toggleNuiFrame(true)
     SendReactMessage('setLocations', Locations)
     local playerData = getPlayerData()
-    _LastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)
+    lastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)
     camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(camera, true)
     RenderScriptCams(true, false, 1, true, true)
@@ -59,7 +57,7 @@ RegisterNUICallback('spawnCharacter', function(data, cb)
     local camPos
     local playerData = getPlayerData()
     if data.label == 'Last Location' then
-        if _LastLocation then
+        if lastLocation then
             camPos = { x = playerData.position.x, y = playerData.position.y, z = playerData.position.z }
         else
             camPos = { x = -206.19, y = -1013.78, z = 30.13 }
@@ -70,7 +68,6 @@ RegisterNUICallback('spawnCharacter', function(data, cb)
     toggleNuiFrame(false)
     FreezeEntityPosition(PlayerPedId(), true)
     SetEntityVisible(PlayerId(), false, 0)
-    local playerPed = PlayerPedId()
     SetCam(camPos)
     FreezeEntityPosition(PlayerPedId(), false)
 end)
@@ -142,10 +139,10 @@ end
 function getCurrentWeatherInfo()
     local weatherId = GetPrevWeatherTypeHashName()
     local weatherName = "Unknown"
-    local temperature = 0 -- Default temperature value
+    local temperature = 0
     if weatherId == 916995460 then
         weatherName = "Clear"
-        temperature = 24 -- Example temperature range
+        temperature = 24
     elseif weatherId == -1750463879 then
         weatherName = "Extra Sunny"
         temperature = 35

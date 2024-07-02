@@ -46,7 +46,7 @@ RegisterNetEvent('devx_spawn:client:openUI', function()
     if playerData then
         lastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)
     end
-    camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
+    local camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(camera, true)
     RenderScriptCams(true, false, 1, true, true)
 end)
@@ -79,7 +79,7 @@ end)
 local cloudOpacity = 0.01
 local muteSound = true
 
-function ToggleSound(state)
+local function ToggleSound(state)
     if state then
         StartAudioScene("MP_LEADERBOARD_SCENE")
     else
@@ -106,7 +106,7 @@ function SetCam(campos)
         DestroyCam(cam, true)
     end
     Wait(cam1Time)
-    cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00, 0.00, 0.00, 110.00, false, 0)
+    local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00, 0.00, 0.00, 110.00, false, 0)
     PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
     SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
     SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
@@ -178,7 +178,7 @@ local function getCurrentWeatherInfo()
     return weatherName, temperature
 end
 
-RegisterNetEvent('receiveDateTime', function(dateString)
+RegisterNetEvent('receiveData', function(dateString)
     local weather, temp = getCurrentWeatherInfo()
     local info = {
         time = getCurrentTime(),
@@ -192,7 +192,7 @@ end)
 
 CreateThread(function()
     while true do
-        TriggerServerEvent('sendDateTimeToClient')
+        TriggerServerEvent('sendData')
         Wait(1000)
     end
 end)

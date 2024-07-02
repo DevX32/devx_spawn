@@ -263,8 +263,8 @@ body {
 
 .information {
   position: absolute;
-  bottom: 52px;
-  left: 205px;
+  bottom: 50px;
+  left: 225px;
   width: 220px;
   background: #212121;
   border: 2px solid hsl(220, 17%, 37%);

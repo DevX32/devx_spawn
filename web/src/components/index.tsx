@@ -10,11 +10,19 @@ import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 debugData([{ action: 'setVisible', data: { visible: true } }]);
 
+interface SpawnOption {
+  label: string,
+  x: number,
+  y: number,
+  z: number,
+}
+
 interface LocationsInterface {
   top: number,
   left: number,
   label: string,
   description: string,
+  spawnOptions: SpawnOption[],
 }
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -36,7 +44,7 @@ const App: React.FC = () => {
   const [showHidden, setShowHidden] = useState(true);
   const [hidden, setHidden] = useState(true);
   const [visible, setVisible] = useState(false);
-  const [chosenData, setChosenData] = useState({
+  const [chosenData, setChosenData] = useState<SpawnOption>({
     label: '',
     x: 0,
     y: 0,
@@ -48,31 +56,51 @@ const App: React.FC = () => {
       top: 660,
       left: 1060,
       label: 'Pier',
-      description: 'A beautiful pier with scenic views.'
+      description: 'A beautiful pier with scenic views.',
+      spawnOptions: [
+        { label: 'Near Entrance', x: 100, y: 200, z: 0 },
+        { label: 'Near Ferris Wheel', x: 120, y: 220, z: 0 }
+      ]
     },
     {
       top: 612,
       left: 920,
       label: 'Richman Hotel',
-      description: 'A luxurious hotel with all the amenities.'
+      description: 'A luxurious hotel with all the amenities.',
+      spawnOptions: [
+        { label: 'Lobby', x: 300, y: 400, z: 0 },
+        { label: 'Poolside', x: 320, y: 420, z: 0 }
+      ]
     },
     {
       top: 280,
       left: 530,
       label: 'Sandy Shores',
-      description: 'A quiet desert town with a small population.'
+      description: 'A quiet desert town with a small population.',
+      spawnOptions: [
+        { label: 'Main Street', x: 500, y: 600, z: 0 },
+        { label: 'Gas Station', x: 520, y: 620, z: 0 }
+      ]
     },
     {
       top: 490,
       left: 260,
       label: 'Paleto Bay',
-      description: 'A coastal town with beautiful beaches.'
+      description: 'A coastal town with beautiful beaches.',
+      spawnOptions: [
+        { label: 'Beach', x: 700, y: 800, z: 0 },
+        { label: 'Town Center', x: 720, y: 820, z: 0 }
+      ]
     },
     {
       top: 360,
       left: 1000,
       label: 'Mirror Park',
-      description: 'A trendy neighborhood with a great park.'
+      description: 'A trendy neighborhood with a great park.',
+      spawnOptions: [
+        { label: 'Near Lake', x: 900, y: 1000, z: 0 },
+        { label: 'Park Entrance', x: 920, y: 1020, z: 0 }
+      ]
     },
   ]);
 
@@ -84,7 +112,7 @@ const App: React.FC = () => {
     setLocations(data);
   });
 
-  const spawn = (data: any) => {
+  const spawn = (data: SpawnOption) => {
     setVisible(false);
     fetchNui('spawnCharacter', data);
   };
@@ -138,7 +166,7 @@ const App: React.FC = () => {
         </div>
         <div className='infoRow'>
           <svg xmlns="http://www.w3.org/2000/svg" width='35' height='35' fill='white' viewBox="0 0 640 512">
-            <path d="M0 336c0 79.5 64.5 144 144 144H512c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z" />
+          <path d="M0 336c0 79.5 64.5 144 144 144H512c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z" />
           </svg>
           <div className='infoColumn'>
             <div className='title'>{infoData.weather}</div>
@@ -156,7 +184,7 @@ const App: React.FC = () => {
         </div>
         <div className='infoRow'>
           <svg xmlns="http://www.w3.org/2000/svg" width='30' height='30' fill='white' viewBox="0 0 320 512">
-          <path d="M160 64c-26.5 0-48 21.5-48 48V276.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5V112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112V276.5c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6V112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3V144c0-8.8 7.2-16 16-16s16 7.2 16 16V322.7c18.6 6.6 32 24.4 32 45.3z" />
+            <path d="M160 64c-26.5 0-48 21.5-48 48V276.5c0 17.3-7.1 31.9-15.3 42.5C86.2 332.6 80 349.5 80 368c0 44.2 35.8 80 80 80s80-35.8 80-80c0-18.5-6.2-35.4-16.7-48.9c-8.2-10.6-15.3-25.2-15.3-42.5V112c0-26.5-21.5-48-48-48zM48 112C48 50.2 98.1 0 160 0s112 50.1 112 112V276.5c0 .1 .1 .3 .2 .6c.2 .6 .8 1.6 1.7 2.8c18.9 24.4 30.1 55 30.1 88.1c0 79.5-64.5 144-144 144S16 447.5 16 368c0-33.2 11.2-63.8 30.1-88.1c.9-1.2 1.5-2.2 1.7-2.8c.1-.3 .2-.5 .2-.6V112zM208 368c0 26.5-21.5 48-48 48s-48-21.5-48-48c0-20.9 13.4-38.7 32-45.3V144c0-8.8 7.2-16 16-16s16 7.2 16 16V322.7c18.6 6.6 32 24.4 32 45.3z" />
           </svg>
           <div className='infoColumn'>
             <div className='title'>{infoData.temp} °C</div>
@@ -170,7 +198,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className='locations'>
-        {locations && locations.map((data: any, key: number) => (
+        {locations && locations.map((data: LocationsInterface, key: number) => (
           <HtmlTooltip
             key={key}
             title={
@@ -178,7 +206,9 @@ const App: React.FC = () => {
                 <div className='tooltip-wrapper'>
                   <div className='tt-title'>{data.label}</div>
                   <div className='tt-description'>{data.description}</div>
-                  <div className='tt-button' onClick={() => { spawn(data) }}>Spawn</div>
+                  {data.spawnOptions.map((option, index) => (
+                    <div key={index} className='tt-button' onClick={() => { spawn(option) }}>{option.label}</div>
+                  ))}
                 </div>
               </React.Fragment>
             }

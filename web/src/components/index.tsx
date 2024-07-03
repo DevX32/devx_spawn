@@ -30,12 +30,12 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: '#212121',
-    border: '2px solid hsl(220, 17%, 37%)',
-    borderRadius: '2px',
-    color: 'white',
+    border: '0.125rem solid hsl(220, 17%, 37%)',
+    borderRadius: '0.125rem',
+    color: 'hsl(0, 0%, 100%)',
     maxWidth: 220,
-    fontSize: '14px',
-    padding: '10px'
+    fontSize: '0.875rem',
+    padding: '0.625rem'
   },
 }));
 
@@ -166,7 +166,7 @@ const App: React.FC = () => {
         </div>
         <div className='infoRow'>
           <svg xmlns="http://www.w3.org/2000/svg" width='35' height='35' fill='white' viewBox="0 0 640 512">
-          <path d="M0 336c0 79.5 64.5 144 144 144H512c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z" />
+            <path d="M0 336c0 79.5 64.5 144 144 144H512c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z" />
           </svg>
           <div className='infoColumn'>
             <div className='title'>{infoData.weather}</div>
@@ -221,11 +221,11 @@ const App: React.FC = () => {
         <div className='decision-desc'>Are You Sure You Want To Spawn At</div>
         <div className='decision-title'>{chosenData.label}</div>
         <div className='decision-button-wrapper'>
-          <Button className='button' variant="contained" onClick={() => spawn(chosenData)} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', color: '#A5D8FF', background: '#1A2D3F' }}>Spawn</Button>
-          <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '15px', color: '#FFFFFF', background: '#25262B' }}>Cancel</Button>
+          <Button className='button' variant="contained" onClick={() => spawn(chosenData)} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.938rem', color: 'hsl(206, 100%, 82.35%)', background: 'hsl(209.19, 41.57%, 17.45%)' }}>Spawn</Button>
+          <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.938rem', color: 'hsl(0, 0%, 100%)', background: 'hsl(230, 7.5%, 15.69%)' }}>Cancel</Button>
         </div>
       </div>
-      <div className='last-location'><Button color="info" style={{ width: '200px', height: '50px', border: "2px solid hsl(220, 17%, 37%)", fontSize: '20px', fontFamily: "DEVX32", background: '#212121' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>
+      <div className='last-location'><Button color="info" style={{ width: '12.5rem', height: '3.125rem', border: "0.125rem solid hsl(220, 17%, 37%)", fontSize: '1.25rem', fontFamily: "DEVX32", background: 'hsl(0, 0%, 13%)' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>
     </div>
   );
 }

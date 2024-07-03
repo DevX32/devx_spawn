@@ -1,5 +1,4 @@
 return {
-    Locations = {
         {
             top = 640,
             left = 1120,
@@ -53,4 +52,3 @@ return {
             z = 30.7960,
         },
     }
-}

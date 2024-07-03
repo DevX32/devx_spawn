@@ -1,4 +1,3 @@
-local config = require('shared.config')
 local camZPlus1 = 1000
 local camZPlus2 = 50
 local pointCamCoords = 75
@@ -17,6 +16,7 @@ elseif GetResourceState('qbx_core') == 'started' then
     CoreName = 'qbox'
 else
     print("No core framework detected")
+    return
 end
 
 local function getPlayerData()
@@ -36,12 +36,16 @@ local function toggleNuiFrame(shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
 
+RegisterCommand('spawn', function()
+    toggleNuiFrame(true)
+end)
+
 RegisterNetEvent('devx_spawn:client:openUI', function()
     DoScreenFadeOut(250)
     Wait(1000)
     DoScreenFadeIn(250)
     toggleNuiFrame(true)
-    SendReactMessage('setLocations', config.Locations)
+    SendReactMessage('setLocations', Config.Locations)
     local playerData = getPlayerData()
     if playerData then
         lastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)

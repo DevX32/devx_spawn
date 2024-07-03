@@ -37,6 +37,12 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
     fontSize: '14px',
     padding: '10px'
   },
+  '& .tt-button': {
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
 }));
 
 const App: React.FC = () => {
@@ -207,7 +213,7 @@ const App: React.FC = () => {
                   <div className='tt-title'>{data.label}</div>
                   <div className='tt-description'>{data.description}</div>
                   {data.spawnOptions.map((option, index) => (
-                    <div key={index} className='tt-button' onClick={() => { spawn(option) }}>{option.label}</div>
+                    <div key={index} className='tt-button' onClick={() => { spawn(option); setShow(false); }}> {option.label}</div>
                   ))}
                 </div>
               </React.Fragment>

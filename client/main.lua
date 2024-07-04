@@ -6,6 +6,7 @@ local cam1Time = 500
 local cam2Time = 1000
 local LastLocation = nil
 local CoreName, CoreObject
+local Locations = require("shared.config")
 
 if GetResourceState('qb-core') == 'started' then
     CoreName = 'qb'
@@ -38,7 +39,7 @@ RegisterNetEvent('devx_spawn:client:openUI', function()
     Wait(1000)
     DoScreenFadeIn(250)
     ToggleNuiFrame(true)
-    SendReactMessage('setLocations', Config.Locations)
+    SendReactMessage('setLocations', Locations)
     local playerData = GetPlayerData()
     if playerData then
         LastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)

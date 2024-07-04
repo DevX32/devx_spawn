@@ -5,6 +5,7 @@ local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
 local LastLocation = nil
+local Config = require 'shared.config'
 local CoreName, CoreObject
 
 if GetResourceState('qb-core') == 'started' then
@@ -33,7 +34,7 @@ function ToggleNuiFrame(shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
 
-RegisterNetEvent('devx_spawn:openUI', function()
+RegisterNetEvent('devx_spawn:client:openUI', function()
     DoScreenFadeOut(250)
     Wait(1000)
     DoScreenFadeIn(250)

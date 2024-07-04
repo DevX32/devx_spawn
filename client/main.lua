@@ -5,7 +5,6 @@ local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
 local LastLocation = nil
-local Config = require 'shared.config'
 local CoreName, CoreObject
 
 if GetResourceState('qb-core') == 'started' then
@@ -79,9 +78,9 @@ local muteSound = true
 
 function ToggleSound(state)
     if state then
-        StartAudioScene("MP_LEADERBOARD_SCENE")
+        StartAudioScene("MP_LEADERBOARD_SCENE");
     else
-        StopAudioScene("MP_LEADERBOARD_SCENE")
+        StopAudioScene("MP_LEADERBOARD_SCENE");
     end
 end
 

@@ -55,8 +55,8 @@ const App: React.FC = () => {
 
   const [locations, setLocations] = useState<LocationsInterface[]>([
     {
-      top: 660,
-      left: 1060,
+      top: 670,
+      left: 1085,
       label: 'Pier',
       description: 'A beautiful pier with scenic views.',
       spawnOptions: [
@@ -75,7 +75,7 @@ const App: React.FC = () => {
       ]
     },
     {
-      top: 280,
+      top: 260,
       left: 530,
       label: 'Sandy Shores',
       description: 'A quiet desert town with a small population.',
@@ -86,7 +86,7 @@ const App: React.FC = () => {
     },
     {
       top: 490,
-      left: 260,
+      left: 230,
       label: 'Paleto Bay',
       description: 'A coastal town with beautiful beaches.',
       spawnOptions: [
@@ -95,8 +95,8 @@ const App: React.FC = () => {
       ]
     },
     {
-      top: 360,
-      left: 1000,
+      top: 340,
+      left: 1020,
       label: 'Mirror Park',
       description: 'A trendy neighborhood with a great park.',
       spawnOptions: [

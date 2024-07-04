@@ -51,6 +51,8 @@ const App: React.FC = () => {
     z: 0,
   });
 
+  const [tooltipOpen, setTooltipOpen] = useState<{ [key: number]: boolean }>({});
+
   const [locations, setLocations] = useState<LocationsInterface[]>([
     {
       top: 660,
@@ -150,6 +152,20 @@ const App: React.FC = () => {
     setInfoData(data);
   });
 
+  const handleTooltipOpen = (index: number) => {
+    setTooltipOpen((prevState) => ({
+      ...prevState,
+      [index]: true,
+    }));
+  };
+
+  const handleTooltipClose = (index: number) => {
+    setTooltipOpen((prevState) => ({
+      ...prevState,
+      [index]: false,
+    }));
+  };
+
   return (
     <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
       <div className="devx32-text">CHOOSE WHERE TO APPEAR</div>
@@ -212,6 +228,9 @@ const App: React.FC = () => {
                 </div>
               </React.Fragment>
             }
+            open={tooltipOpen[key] || false}
+            onOpen={() => handleTooltipOpen(key)}
+            onClose={() => handleTooltipClose(key)}
           >
             <div className='location-pin' style={{ top: `${data.top}px`, left: `${data.left}px` }} />
           </HtmlTooltip>

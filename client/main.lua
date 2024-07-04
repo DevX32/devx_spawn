@@ -4,7 +4,8 @@ local pointCamCoords = 75
 local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
-local lastLocation = nil
+local LastLocation = nil
+local CoreName, CoreObject
 
 if GetResourceState('qb-core') == 'started' then
     CoreName = 'qb'
@@ -12,43 +13,35 @@ if GetResourceState('qb-core') == 'started' then
 elseif GetResourceState('es_extended') == 'started' then
     CoreName = 'esx'
     TriggerEvent('esx:getSharedObject', function(obj) CoreObject = obj end)
-elseif GetResourceState('qbx_core') == 'started' then
-    CoreName = 'qbox'
 else
     print("No core framework detected")
     return
 end
 
-local function getPlayerData()
+function GetPlayerData()
     if CoreName == 'qb' then
         return CoreObject.Functions.GetPlayerData()
     elseif CoreName == 'esx' then
         return CoreObject.GetPlayerData()
-    elseif CoreName == 'qbox' then
-        return QBX.playerData
     else
         return nil
     end
 end
 
-local function toggleNuiFrame(shouldShow)
+function ToggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
 
-RegisterCommand('spawn', function()
-    toggleNuiFrame(true)
-end)
-
-RegisterNetEvent('devx_spawn:client:openUI', function()
+RegisterNetEvent('devx_spawn:openUI', function()
     DoScreenFadeOut(250)
     Wait(1000)
     DoScreenFadeIn(250)
-    toggleNuiFrame(true)
+    ToggleNuiFrame(true)
     SendReactMessage('setLocations', Config.Locations)
-    local playerData = getPlayerData()
+    local playerData = GetPlayerData()
     if playerData then
-        lastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)
+        LastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)
     end
     local camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(camera, true)
@@ -56,16 +49,16 @@ RegisterNetEvent('devx_spawn:client:openUI', function()
 end)
 
 RegisterNUICallback('hideFrame', function(_, cb)
-    toggleNuiFrame(false)
+    ToggleNuiFrame(false)
     debugPrint('Hide NUI frame')
     cb({})
 end)
 
 RegisterNUICallback('spawnCharacter', function(data, cb)
     local camPos
-    local playerData = getPlayerData()
+    local playerData = GetPlayerData()
     if data.label == 'Last Location' then
-        if lastLocation then
+        if LastLocation then
             camPos = { x = playerData.position.x, y = playerData.position.y, z = playerData.position.z }
         else
             camPos = { x = -206.19, y = -1013.78, z = 30.13 }
@@ -73,7 +66,7 @@ RegisterNUICallback('spawnCharacter', function(data, cb)
     else
         camPos = { x = data.x, y = data.y, z = data.z }
     end
-    toggleNuiFrame(false)
+    ToggleNuiFrame(false)
     FreezeEntityPosition(PlayerPedId(), true)
     SetEntityVisible(PlayerId(), false, 0)
     SetCam(camPos)
@@ -83,7 +76,7 @@ end)
 local cloudOpacity = 0.01
 local muteSound = true
 
-local function ToggleSound(state)
+function ToggleSound(state)
     if state then
         StartAudioScene("MP_LEADERBOARD_SCENE")
     else
@@ -103,20 +96,20 @@ function InitialSetup()
 end
 
 function SetCam(campos)
-    local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00, 0.00, 0.00, 110.00, false, 0)
+    local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
     PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords)
     SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
     if DoesCamExist(cam) then
         DestroyCam(cam, true)
     end
     Wait(cam1Time)
-    local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00, 0.00, 0.00, 110.00, false, 0)
+    local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
     PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
     SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
     SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
     DoScreenFadeOut(500)
     Wait(2000)
-    FreezeEntityPosition(PlayerPedId(), false)
+    FreezeEntityPosition(ped, false)
     RenderScriptCams(false, true, 500, true, true)
     SetCamActive(cam, false)
     DestroyCam(cam, true)
@@ -127,11 +120,7 @@ function SetCam(campos)
     DoScreenFadeIn(250)
 end
 
-local function round(number)
-    return math.floor(number + 0.5)
-end
-
-local function getCurrentTime()
+function GetTime()
     local hour = GetClockHours()
     local minute = GetClockMinutes()
     local ampm = "AM"
@@ -144,7 +133,7 @@ local function getCurrentTime()
     return string.format("%02d:%02d %s", hour, minute, ampm)
 end
 
-local function getCurrentWeatherInfo()
+function GetWeatherInfo()
     local weatherId = GetPrevWeatherTypeHashName()
     local weatherName = "Unknown"
     local temperature = 0
@@ -183,13 +172,13 @@ local function getCurrentWeatherInfo()
 end
 
 RegisterNetEvent('receiveData', function(dateString)
-    local weather, temp = getCurrentWeatherInfo()
+    local weather, temp = GetWeatherInfo()
     local info = {
-        time = getCurrentTime(),
+        time = GetTime(),
         date = dateString,
         weather = weather,
         temp = temp,
-        wind = round(GetWindSpeed()),
+        wind = math.floor(GetWindSpeed() + 0.5),
     }
     SendReactMessage('updateInfo', info)
 end)

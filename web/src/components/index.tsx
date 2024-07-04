@@ -244,7 +244,7 @@ const App: React.FC = () => {
           <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.938rem', color: 'hsl(0, 0%, 100%)', background: 'hsl(230, 7.5%, 15.69%)' }}>Cancel</Button>
         </div>
       </div>
-      <div className='last-location'><Button color="info" style={{ width: '12.5rem', height: '3.125rem', border: "0.125rem solid hsl(220, 17%, 37%)", fontSize: '1.25rem', fontFamily: "DEVX32", background: 'hsl(0, 0%, 13%)' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>
+      <div className='last-location'><Button color="info" style={{ width: '12.5rem', height: '3.125rem', border: "0.125rem solid hsl(220, 17%, 37%)", fontSize: '1.25rem', fontFamily: "devx32", background: 'hsl(0, 0%, 13%)' }} variant="contained" onClick={lastLocation}>Last Location</Button></div>
     </div>
   );
 }

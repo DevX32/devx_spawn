@@ -1,12 +1,14 @@
 @font-face {
   font-family: 'devx32';
-  src: url('fonts/a_RubricaXtCn.ttf') format('woff2');
+  src: url('fonts/a_RubricaXtCn.ttf');
 }
 
 body {
   user-select: none;
   overflow: hidden;
   font-family: 'Roboto';
+  margin: 0;
+  padding: 0;
 }
 
 .nui-wrapper {
@@ -53,8 +55,8 @@ body {
 }
 
 .map {
-  height: 55.125rem;
-  width: 89.5rem;
+  height: auto;
+  width: 100%;
   position: relative;
   object-fit: cover;
   overflow: hidden;

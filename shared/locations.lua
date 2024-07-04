@@ -1,4 +1,4 @@
- return {
+return {
     {
         top = 670,
         left = 1085,
@@ -18,7 +18,7 @@
         label = 'Richman Hotel',
         description = 'A luxurious hotel with all the amenities.',
         spawnOptions = {
-            { label = 'Lobby',x = 300, y = 400, z = 0 },
+            { label = 'Lobby', x = 300, y = 400, z = 0 },
             { label = 'Poolside', x = 320, y = 420, z = 0 }
         },
         x = -1284.2755,
@@ -57,8 +57,11 @@
         label = 'Mirror Park',
         description = 'A trendy neighborhood with a great park.',
         spawnOptions = {
-          { label = 'Near Lake', x = 900, y = 1000, z = 0 },
-          { label = 'Park Entrance', x = 920, y = 1020, z = 0 }
-        }
+            { label = 'Near Lake', x = 900, y = 1000, z = 0 },
+            { label = 'Park Entrance', x = 920, y = 1020, z = 0 }
+        },
+        x = 1234.5678,
+        y = 5678.1234,
+        z = 45.6789,
     },
 }

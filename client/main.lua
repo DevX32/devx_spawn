@@ -6,7 +6,7 @@ local cam1Time = 500
 local cam2Time = 1000
 local LastLocation = nil
 local CoreName, CoreObject
-local Locations = require("shared.config")
+local Locations = require('shared.locations')
 
 if GetResourceState('qb-core') == 'started' then
     CoreName = 'qb'

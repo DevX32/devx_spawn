@@ -86,7 +86,6 @@ end
 
 function ClearScreen()
     SetCloudHatOpacity(cloudOpacity)
-    HideHudAndRadarThisFrame()
     SetDrawOrigin(0.0, 0.0, 0.0, 0)
 end
 

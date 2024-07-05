@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './styles.css';
 import { debugData } from "../utils/debugData";
 import { useNuiEvent } from "../hooks/useNuiEvent";
@@ -33,7 +33,7 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
     border: '0.125rem solid hsl(220, 17%, 37%)',
     borderRadius: '0.125rem',
     color: 'hsl(0, 0%, 100%)',
-    maxWidth: '220',
+    maxWidth: 220,
     fontSize: '0.875rem',
     padding: '0.625rem'
   },
@@ -114,19 +114,19 @@ const App: React.FC = () => {
     setLocations(data);
   });
 
-  const spawn = (data: SpawnOption) => {
+  const spawn = useCallback((data: SpawnOption) => {
     setVisible(false);
     fetchNui('spawnCharacter', data);
-  };
+  }, []);
 
-  const cancel = () => {
+  const cancel = useCallback(() => {
     setVisible(false);
-  };
+  }, []);
 
-  const lastLocation = () => {
+  const lastLocation = useCallback(() => {
     setChosenData({ label: 'Last Location', x: 0, y: 0, z: 0 });
     setVisible(true);
-  };
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -152,19 +152,19 @@ const App: React.FC = () => {
     setInfoData(data);
   });
 
-  const handleTooltipOpen = (index: number) => {
+  const handleTooltipOpen = useCallback((index: number) => {
     setTooltipOpen((prevState) => ({
       ...prevState,
       [index]: true,
     }));
-  };
+  }, []);
 
-  const handleTooltipClose = (index: number) => {
+  const handleTooltipClose = useCallback((index: number) => {
     setTooltipOpen((prevState) => ({
       ...prevState,
       [index]: false,
     }));
-  };
+  }, []);
 
   return (
     <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>

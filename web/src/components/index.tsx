@@ -33,7 +33,7 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
     border: '0.125rem solid hsl(220, 17%, 37%)',
     borderRadius: '0.125rem',
     color: 'hsl(0, 0%, 100%)',
-    maxWidth: 220,
+    maxWidth: '220',
     fontSize: '0.875rem',
     padding: '0.625rem'
   },
@@ -220,10 +220,10 @@ const App: React.FC = () => {
             title={
               <React.Fragment>
                 <div className='tooltip-wrapper'>
-                  <div className='tt-title'>{data.label}</div>
-                  <div className='tt-description'>{data.description}</div>
+                  <div className='tooltip-title'>{data.label}</div>
+                  <div className='tooltip-description'>{data.description}</div>
                   {data.spawnOptions.map((option, index) => (
-                    <div key={index} className='tt-button' onClick={() => { spawn(option) }}>{option.label}</div>
+                    <div key={index} className='tooltip-button' onClick={() => { spawn(option) }}>{option.label}</div>
                   ))}
                 </div>
               </React.Fragment>

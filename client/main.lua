@@ -19,7 +19,7 @@ else
     return
 end
 
-function GetPlayerData()
+local function GetPlayerData()
     if CoreName == 'qb' then
         return CoreObject.Functions.GetPlayerData()
     elseif CoreName == 'esx' then
@@ -29,7 +29,7 @@ function GetPlayerData()
     end
 end
 
-function ToggleNuiFrame(shouldShow)
+local function ToggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
@@ -77,25 +77,25 @@ end)
 local cloudOpacity = 0.01
 local muteSound = true
 
-function ToggleSound(state)
+local function ToggleSound(state)
     if state then
-        StartAudioScene("MP_LEADERBOARD_SCENE");
+        StartAudioScene("MP_LEADERBOARD_SCENE")
     else
-        StopAudioScene("MP_LEADERBOARD_SCENE");
+        StopAudioScene("MP_LEADERBOARD_SCENE")
     end
 end
 
-function ClearScreen()
+local function ClearScreen()
     SetCloudHatOpacity(cloudOpacity)
     SetDrawOrigin(0.0, 0.0, 0.0, 0)
 end
 
-function InitialSetup()
+local function InitialSetup()
     ToggleSound(muteSound)
     SwitchOutPlayer(PlayerPedId(), 0, 1)
 end
 
-function SetCam(campos)
+local function SetCam(campos)
     local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
     PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords)
     SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
@@ -109,7 +109,7 @@ function SetCam(campos)
     SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
     DoScreenFadeOut(500)
     Wait(2000)
-    FreezeEntityPosition(ped, false)
+    FreezeEntityPosition(PlayerPedId(), false)
     RenderScriptCams(false, true, 500, true, true)
     SetCamActive(cam, false)
     DestroyCam(cam, true)
@@ -120,7 +120,7 @@ function SetCam(campos)
     DoScreenFadeIn(250)
 end
 
-function GetTime()
+local function GetTime()
     local hour = GetClockHours()
     local minute = GetClockMinutes()
     local ampm = "AM"
@@ -133,7 +133,7 @@ function GetTime()
     return string.format("%02d:%02d %s", hour, minute, ampm)
 end
 
-function GetWeatherInfo()
+local function GetWeatherInfo()
     local weatherId = GetPrevWeatherTypeHashName()
     local weatherName = "Unknown"
     local temperature = 0

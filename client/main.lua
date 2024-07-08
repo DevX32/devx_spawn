@@ -5,15 +5,16 @@ local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
 local LastLocation = nil
-local CoreName, CoreObject
 local Locations = require('shared.locations')
 
 if GetResourceState('qb-core') == 'started' then
     CoreName = 'qb'
-    CoreObject = exports['qb-core']:GetCoreObject()
+    QBCore = exports['qb-core']:GetCoreObject()
+    print('QBCore Detected')
 elseif GetResourceState('es_extended') == 'started' then
     CoreName = 'esx'
     TriggerEvent('esx:getSharedObject', function(obj) CoreObject = obj end)
+    print('ESX Detected')
 else
     print("No core framework detected")
     return
@@ -21,7 +22,7 @@ end
 
 local function GetPlayerData()
     if CoreName == 'qb' then
-        return CoreObject.Functions.GetPlayerData()
+        return QBCore.Functions.GetPlayerData()
     elseif CoreName == 'esx' then
         return CoreObject.GetPlayerData()
     else
@@ -42,7 +43,7 @@ RegisterNetEvent('devx_spawn:client:openUI', function()
     SendReactMessage('setLocations', Locations)
     local playerData = GetPlayerData()
     if playerData then
-        LastLocation = vector3(playerData.position.x, playerData.position.y, playerData.position.z)
+        LastLocation = vec3(playerData.position.x, playerData.position.y, playerData.position.z)
     end
     local camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(camera, true)
@@ -55,7 +56,7 @@ RegisterNUICallback('hideFrame', function(_, cb)
     cb({})
 end)
 
-RegisterNUICallback('spawnCharacter', function(data, cb)
+RegisterNUICallback('spawnCharacter', function(data)
     local camPos
     local playerData = GetPlayerData()
     if data.label == 'Last Location' then
@@ -74,6 +75,7 @@ RegisterNUICallback('spawnCharacter', function(data, cb)
     FreezeEntityPosition(PlayerPedId(), false)
 end)
 
+/*
 local cloudOpacity = 0.01
 local muteSound = true
 
@@ -94,18 +96,19 @@ local function InitialSetup()
     ToggleSound(muteSound)
     SwitchOutPlayer(PlayerPedId(), 0, 1)
 end
+*/
 
 local function SetCam(campos)
-    local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
-    PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords)
-    SetCamActiveWithInterp(cam2, cam, cam1Time, true, true)
-    if DoesCamExist(cam) then
-        DestroyCam(cam, true)
+    local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
+    local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
+    PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords)
+    SetCamActiveWithInterp(cam, cam2, cam1Time, true, true)
+    if DoesCamExist(cam2) then
+        DestroyCam(cam2, true)
     end
     Wait(cam1Time)
-    local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus2, 300.00,0.00,0.00, 110.00, false, 0)
-    PointCamAtCoord(cam, campos.x, campos.y, campos.z + pointCamCoords2)
-    SetCamActiveWithInterp(cam, cam2, cam2Time, true, true)
+    PointCamAtCoord(cam2, campos.x, campos.y, campos.z + pointCamCoords2)
+    SetCamActiveWithInterp(cam2, cam2, cam2Time, true, true)
     SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
     DoScreenFadeOut(500)
     Wait(2000)

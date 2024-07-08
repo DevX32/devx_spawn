@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/index';
+import App from './components/App';
 import {VisibilityProvider} from "./providers/VisibilityProvider";
 
 ReactDOM.render(

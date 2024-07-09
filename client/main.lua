@@ -5,80 +5,17 @@ local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
 local LastLocation = nil
-
-if GetResourceState('qb-core') == 'started' then
-    CoreName = 'qb'
-    QBCore = exports['qb-core']:GetCoreObject()
-    print('QBCore Detected')
-elseif GetResourceState('es_extended') == 'started' then
-    CoreName = 'esx'
-    TriggerEvent('esx:getSharedObject', function(obj) CoreObject = obj end)
-    print('ESX Detected')
-else
-    print("No core framework detected")
-    return
-end
-
-local function GetPlayerData()
-    if CoreName == 'qb' then
-        return QBCore.Functions.GetPlayerData()
-    elseif CoreName == 'esx' then
-        return CoreObject.GetPlayerData()
-    else
-        return nil
-    end
-end
+local QBCore = exports['qb-core']:GetCoreObject()
 
 local function ToggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
 
-RegisterNetEvent('devx_spawn:client:openUI', function()
-    DoScreenFadeOut(250)
-    Wait(1000)
-    DoScreenFadeIn(250)
-    ToggleNuiFrame(true)
-    SendReactMessage('setLocations', Config.Locations)
-    local playerData = GetPlayerData()
-    if playerData then
-        LastLocation = vec3(playerData.position.x, playerData.position.y, playerData.position.z)
-    end
-    local camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
-    SetCamActive(camera, true)
-    RenderScriptCams(true, false, 1, true, true)
-end)
-
-RegisterNUICallback('hideFrame', function(_, cb)
-    ToggleNuiFrame(false)
-    debugPrint('Hide NUI frame')
-    cb({})
-end)
-
-RegisterNUICallback('spawnCharacter', function(data)
-    local camPos
-    local playerData = GetPlayerData()
-    if data.label == 'Last Location' then
-        if LastLocation then
-            camPos = { x = playerData.position.x, y = playerData.position.y, z = playerData.position.z }
-        else
-            camPos = { x = -206.19, y = -1013.78, z = 30.13 }
-        end
-    else
-        camPos = { x = data.x, y = data.y, z = data.z }
-    end
-    ToggleNuiFrame(false)
-    FreezeEntityPosition(PlayerPedId(), true)
-    SetEntityVisible(PlayerId(), false, 0)
-    SetCam(camPos)
-    FreezeEntityPosition(PlayerPedId(), false)
-end)
-
-/*
 local cloudOpacity = 0.01
 local muteSound = true
 
-local function ToggleSound(state)
+function ToggleSound(state)
     if state then
         StartAudioScene("MP_LEADERBOARD_SCENE")
     else
@@ -86,16 +23,15 @@ local function ToggleSound(state)
     end
 end
 
-local function ClearScreen()
+function ClearScreen()
     SetCloudHatOpacity(cloudOpacity)
     SetDrawOrigin(0.0, 0.0, 0.0, 0)
 end
 
-local function InitialSetup()
+function InitialSetup()
     ToggleSound(muteSound)
     SwitchOutPlayer(PlayerPedId(), 0, 1)
 end
-*/
 
 local function SetCam(campos)
     local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + camZPlus1, 300.00,0.00,0.00, 110.00, false, 0)
@@ -121,6 +57,46 @@ local function SetCam(campos)
     Wait(500)
     DoScreenFadeIn(250)
 end
+
+RegisterNetEvent('devx_spawn:client:openUI', function()
+    DoScreenFadeOut(250)
+    Wait(1000)
+    DoScreenFadeIn(250)
+    ToggleNuiFrame(true)
+    SendReactMessage('setLocations', Config.Locations)
+    local PlayerData = QBCore.Functions.GetPlayerData()
+    if PlayerData then
+        LastLocation = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
+    end
+    local camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + camZPlus1, -85.00, 0.00, 0.00, 100.00, false, 0)
+    SetCamActive(camera, true)
+    RenderScriptCams(true, false, 1, true, true)
+end)
+
+RegisterNUICallback('hideFrame', function(_, cb)
+    ToggleNuiFrame(false)
+    debugPrint('Hide NUI frame')
+    cb({})
+end)
+
+RegisterNUICallback('spawnCharacter', function(data)
+    local camPos
+    local PlayerData = QBCore.Functions.GetPlayerData()
+    if data.label == 'Last Location' then
+        if LastLocation then
+            camPos = { x = PlayerData.position.x, y = PlayerData.position.y, z = PlayerData.position.z }
+        else
+            camPos = { x = -206.19, y = -1013.78, z = 30.13 }
+        end
+    else
+        camPos = { x = data.x, y = data.y, z = data.z }
+    end
+    ToggleNuiFrame(false)
+    FreezeEntityPosition(PlayerPedId(), true)
+    SetEntityVisible(PlayerId(), false, 0)
+    SetCam(camPos)
+    FreezeEntityPosition(PlayerPedId(), false)
+end)
 
 local function GetTime()
     local hour = GetClockHours()

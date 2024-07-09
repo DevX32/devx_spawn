@@ -1,4 +1,4 @@
-return {
+Config = {
     {
         top = 670,
         left = 1085,

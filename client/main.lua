@@ -5,7 +5,6 @@ local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
 local LastLocation = nil
-local Locations = require('shared.locations')
 
 if GetResourceState('qb-core') == 'started' then
     CoreName = 'qb'
@@ -40,7 +39,7 @@ RegisterNetEvent('devx_spawn:client:openUI', function()
     Wait(1000)
     DoScreenFadeIn(250)
     ToggleNuiFrame(true)
-    SendReactMessage('setLocations', Locations)
+    SendReactMessage('setLocations', Config.Locations)
     local playerData = GetPlayerData()
     if playerData then
         LastLocation = vec3(playerData.position.x, playerData.position.y, playerData.position.z)

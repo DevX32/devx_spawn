@@ -206,7 +206,7 @@ const App: React.FC = () => {
         <div className='decision-title'>Are You Sure You Want To Spawn At</div>
         <div className='decision-desc'>{chosenData.label}</div>
         <div className='decision-button-wrapper'>
-          <Button className='button' variant="contained" onClick={() => spawnCharacter(chosenData)} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.938rem', color: 'hsl(206, 100%, 82.35%)', background: 'hsl(209.19, 41.57%, 17.45%' }}>Spawn</Button>
+          <Button className='button' variant="contained" onClick={() => spawnCharacter(chosenData)} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.938rem', color: 'hsl(206, 100%, 82.35%)', background: 'hsl(209.19, 41.57%, 17.45%)' }}>Spawn</Button>
           <Button className='button' variant="contained" onClick={cancel} style={{ fontFamily: 'Roboto', fontWeight: 'bold', fontSize: '0.938rem', color: 'hsl(0, 0%, 100%)', background: 'hsl(230, 7.5%, 15.69%)' }}>Cancel</Button>
         </div>
       </div>

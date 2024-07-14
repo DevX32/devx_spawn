@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import './App.css'
 import { debugData } from "../utils/debugData";
 import { useNuiEvent } from "../hooks/useNuiEvent";
-import map from './images/map.png';
+import map from './images/map.png'
+import { useEffect } from 'react';
 import { fetchNui } from '../utils/fetchNui';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -99,17 +100,12 @@ const App: React.FC = () => {
   ]);
 
   useNuiEvent('setVisible', (data) => {
-    setShow(data.visible);
-  });
+    setShow(data)
+  })
 
   useNuiEvent('setLocations', (data) => {
-    setLocations(data);
-  });
-
-  // const spawnCharacter = (data: { label: string, x: number, y: number, z: number }) => {
-  //   setVisible(false)
-  //   fetchNui('spawnCharacter', data)
-  // }
+    setLocations(data)
+  })
 
   const spawnCharacter = (data: SpawnInterface) => {
     setVisible(false);
@@ -117,53 +113,38 @@ const App: React.FC = () => {
   };
 
   const cancel = () => {
-    setVisible(false);
-  };
+    setVisible(false)
+  }
 
   const lastLocation = () => {
-    setChosenData({ label: 'Last Location', x: 0, y: 0, z: 0 });
-    setVisible(true);
-  };
+    setChosenData({ label: 'Last Location', x: 0, y: 0, z: 0 })
+    setVisible(true)
+  }
 
   useEffect(() => {
-    const hiddenTimer = setTimeout(() => {
-      setHidden(false);
+    setTimeout(() => {
+      setHidden(false)
     }, 1000);
-
-    return () => clearTimeout(hiddenTimer);
-  }, []);
+  }, [hidden])
 
   useEffect(() => {
-    const showHiddenTimer = setTimeout(() => {
-      setShowHidden(false);
+    setTimeout(() => {
+      setShowHidden(false)
     }, 1000);
-
-    return () => clearTimeout(showHiddenTimer);
-  }, []);
-
-  const [infoData, setInfoData] = useState({
-    time: '10:00 AM',
-    date: 'Saturday, May 14',
-    weather: 'Xmas',
-    temp: '27',
-    wind: '1',
-  });
-
-  useNuiEvent('updateInfo', (data: any) => {
-    setInfoData(data);
-  });
+  }, [showHidden])
 
   return (
-    <div className={`nui-wrapper ${show ? 'visible' : ''}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
+    <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
       <div className='devx32-text'>CHOOSE WHERE TO APPEAR</div>
       <div className='devx32-text2'>SPAWN SELECT</div>
       <div className='map-shell'>
         <div className='img-wrapper'>
-          <img src={map} alt="Map" />
+          <img src={map} className='map'>
+          </img>
         </div>
       </div>
       <div className='locations'>
-        {locations && locations.map((location, key) => {
+      {locations && locations.map((location, key) => {
           return (
             <HtmlTooltip
               key={key}
@@ -220,26 +201,26 @@ const App: React.FC = () => {
         </div>
       </div>
       <div className='last-location'>
-        <Button
-          color='info'
-          style={{
-            width: '12.5rem',
-            height: '3.125rem',
-            border: '0.125rem solid hsl(220, 17%, 37%)',
-            top: '60px',
-            left: '30px',
-            fontSize: '1.25rem',
-            fontFamily: 'DevX32',
-            background: 'hsl(0, 0%, 13%)',
-          }}
-          variant='contained'
-          onClick={lastLocation}
-        >
-          Last Location
-        </Button>
+      <Button
+        color='info'
+        style={{
+          width: '12.5rem',
+          height: '3.125rem',
+          border: '2px solid hsl(220, 17%, 37%)',
+          top: '10%',
+          left: '10%',
+          fontSize: '1.25rem',
+          fontFamily: 'DevX32',
+          background: 'hsl(0, 0%, 13%)',
+        }}
+        variant='contained'
+        onClick={lastLocation}
+      >
+        Last Location
+      </Button>
       </div>
     </div>
   );
-};
+}
 
 export default App;

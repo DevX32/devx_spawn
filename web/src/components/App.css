@@ -71,9 +71,9 @@ body {
 }
 
 .locations {
+  position: absolute;
   height: 55.125rem;
   width: 89.5rem;
-  position: absolute;
   color: rgb(69, 156, 233);
 }
 
@@ -183,9 +183,25 @@ body {
 
 .last-location {
   position: absolute;
-  right: 255px;
-  bottom: 112.5px;
+  right: 16rem;
+  bottom: 7.031rem;
   transition: all 0.5s;
+}
+
+@media (max-width: 768px) {
+  .last-location button {
+    width: 10rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .last-location button {
+    width: 15rem;
+    height: 3.75rem;
+    font-size: 1.5rem;
+  }
 }
 
 .tooltip-wrapper {
@@ -234,8 +250,8 @@ body {
 
 .devx32-text {
   position: absolute;
-  top: 4rem;
-  left: 16rem;
+  bottom: 56rem;
+  right: 88rem;
   font-family: 'DevX32';
   font-size: 1.6rem;
   color: hsl(0, 0%, 13%);
@@ -246,8 +262,8 @@ body {
 
 .devx32-text2 {
   position: absolute;
-  top: 5rem;
-  left: 15rem;
+  bottom: 52rem;
+  right: 85rem;
   font-family: 'DevX32';
   font-size: 3.75rem;
   color: rgb(33, 33, 33);

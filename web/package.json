@@ -1,6 +1,6 @@
 {
   "name": "devx32",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "web/build",
   "private": true,
   "dependencies": {

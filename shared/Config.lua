@@ -1,4 +1,5 @@
 Config = {
+    Framework = "qb-core", -- "qb-core" or "esx" 
     Locations = {
         {
             top = 670,

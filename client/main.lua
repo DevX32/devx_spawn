@@ -5,7 +5,12 @@ local pointCamCoords2 = 0
 local cam1Time = 500
 local cam2Time = 1000
 local LastLocation = nil
-local QBCore = exports['qb-core']:GetCoreObject()
+
+if Config.Framework == "qb-core" then
+    QBCore = exports['qb-core']:GetCoreObject()
+elseif Config.Framework == "esx" then
+    ESX = exports.es_extended:getSharedObject()
+end
 
 local function ToggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
@@ -64,7 +69,11 @@ RegisterNetEvent('devx_spawn:client:openUI', function()
     DoScreenFadeIn(250)
     ToggleNuiFrame(true)
     SendReactMessage('setLocations', Config.Locations)
-    local PlayerData = QBCore.Functions.GetPlayerData()
+    if Config.Framework == "qb-core" then
+        PlayerData = QBCore.Functions.GetPlayerData()
+    elseif Config.Framework == "esx" then
+        PlayerData = ESX.GetPlayerData()
+    end
     if PlayerData then
         LastLocation = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     end
@@ -81,7 +90,11 @@ end)
 
 RegisterNUICallback('spawnCharacter', function(data)
     local camPos
-    local PlayerData = QBCore.Functions.GetPlayerData()
+    if Config.Framework == "qb-core" then
+        PlayerData = QBCore.Functions.GetPlayerData()
+    elseif Config.Framework == "esx" then
+        PlayerData = ESX.GetPlayerData()
+    end
     if data.label == 'Last Location' then
         if LastLocation then
             camPos = { x = PlayerData.position.x, y = PlayerData.position.y, z = PlayerData.position.z }
@@ -96,74 +109,4 @@ RegisterNUICallback('spawnCharacter', function(data)
     SetEntityVisible(PlayerId(), false, 0)
     SetCam(camPos)
     FreezeEntityPosition(PlayerPedId(), false)
-end)
-
-local function GetTime()
-    local hour = GetClockHours()
-    local minute = GetClockMinutes()
-    local ampm = "AM"
-    if hour >= 12 then
-        ampm = "PM"
-        if hour > 12 then
-            hour = hour - 12
-        end
-    end
-    return string.format("%02d:%02d %s", hour, minute, ampm)
-end
-
-local function GetWeatherInfo()
-    local weatherId = GetPrevWeatherTypeHashName()
-    local weatherName = "Unknown"
-    local temperature = 0
-    if weatherId == 916995460 then
-        weatherName = "Clear"
-        temperature = 24
-    elseif weatherId == -1750463879 then
-        weatherName = "Extra Sunny"
-        temperature = 35
-    elseif weatherId == 821931868 then
-        weatherName = "Clouds"
-        temperature = 16
-    elseif weatherId == -1148613331 then
-        weatherName = "Overcast"
-        temperature = 11
-    elseif weatherId == 1420204096 then
-        weatherName = "Rain"
-        temperature = 9
-    elseif weatherId == -1233681761 then
-        weatherName = "Thunderstorm"
-        temperature = 5
-    elseif weatherId == 1840358669 then
-        weatherName = "Clearing"
-        temperature = 12
-    elseif weatherId == -1429616491 then
-        weatherName = "Snow"
-        temperature = -2
-    elseif weatherId == 669657108 then
-        weatherName = "Blizzard"
-        temperature = -7
-    elseif weatherId == 603685163 then
-        weatherName = "Light Snow"
-        temperature = -4
-    end
-    return weatherName, temperature
-end
-
-RegisterNetEvent('receiveData', function(dateString)
-    local weather, temp = GetWeatherInfo()
-    local info = {
-        time = GetTime(),
-        date = dateString,
-        weather = weather,
-        temp = temp,
-        wind = math.floor(GetWindSpeed() + 0.5),
-    }
-    SendReactMessage('updateInfo', info)
-end)
-
-CreateThread(function()
-    while true do
-        TriggerServerEvent('sendData')
-        Wait(1000)
-    end
 end)

@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import './App.css';
 import { debugData } from "../utils/debugData";
 import { useNuiEvent } from "../hooks/useNuiEvent";
-import map from './images/map.png'
-import { useEffect } from 'react';
+import map from './images/map.png';
 import { fetchNui } from '../utils/fetchNui';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
 // This will set the NUI to visible if we are developing in browser
-debugData([{ action: 'setVisible', data: { visible: true } }]);
+debugData([
+  {
+    action: 'setVisible',
+    data: true,
+  },
+]);
 
 interface SpawnInterface {
   label: string;
@@ -28,7 +32,7 @@ interface LocationsInterface {
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
+))(() => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: '#212121',
     border: '0.125rem solid hsl(220, 17%, 37%)',
@@ -100,12 +104,12 @@ const App: React.FC = () => {
   ]);
 
   useNuiEvent('setVisible', (data) => {
-    setShow(data)
-  })
+    setShow(data.visible);
+  });
 
   useNuiEvent('setLocations', (data) => {
-    setLocations(data)
-  })
+    setLocations(data);
+  });
 
   const spawnCharacter = (data: SpawnInterface) => {
     setVisible(false);
@@ -113,114 +117,113 @@ const App: React.FC = () => {
   };
 
   const cancel = () => {
-    setVisible(false)
-  }
+    setVisible(false);
+  };
 
   const lastLocation = () => {
-    setChosenData({ label: 'Last Location', x: 0, y: 0, z: 0 })
-    setVisible(true)
-  }
+    setChosenData({ label: 'Last Location', x: 0, y: 0, z: 0 });
+    setVisible(true);
+  };
 
   useEffect(() => {
-    setTimeout(() => {
-      setHidden(false)
+    const timer = setTimeout(() => {
+      setHidden(false);
     }, 1000);
-  }, [hidden])
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setShowHidden(false)
+    const timer = setTimeout(() => {
+      setShowHidden(false);
     }, 1000);
-  }, [showHidden])
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
+    <div className='nui-wrapper'>
       <div className='devx32-text'>CHOOSE WHERE TO APPEAR</div>
       <div className='devx32-text2'>SPAWN SELECT</div>
       <div className='map-shell'>
         <div className='img-wrapper'>
-          <img src={map} className='map'>
-          </img>
+          <img src={map} className='map' alt='Map' />
         </div>
       </div>
       <div className='locations'>
-      {locations && locations.map((location, key) => {
-          return (
-            <HtmlTooltip
-              key={key}
-              title={
-                <React.Fragment>
-                  <div className='tooltip-wrapper'>
-                    <div className='tooltip-title'>{location.label}</div>
-                    {location.spawns.map((spawn, index) => (
-                      <div className='tooltip-button' key={index} onClick={() => { spawnCharacter(spawn) }}>
-                        {spawn.label}
-                      </div>
-                    ))}
+        {locations.map((location, key) => (
+          <HtmlTooltip
+            key={key}
+            title={
+              <div className='tooltip-wrapper'>
+                <div className='tooltip-title'>{location.label}</div>
+                {location.spawns.map((spawn, index) => (
+                  <div className='tooltip-button' key={index} onClick={() => spawnCharacter(spawn)}>
+                    {spawn.label}
                   </div>
-                </React.Fragment>
-              }
+                ))}
+              </div>
+            }
+          >
+            <div className='location-pin' style={{ top: `${location.top}px`, left: `${location.left}px` }} />
+          </HtmlTooltip>
+        ))}
+      </div>
+      {visible && (
+        <div className='decision-wrapper'>
+          <div className='decision-title'>Are You Sure You Want To Spawn At</div>
+          <div className='decision-desc'>{chosenData.label}</div>
+          <div className='decision-button-wrapper'>
+            <Button
+              className='button'
+              variant='contained'
+              onClick={() => spawnCharacter(chosenData)}
+              style={{
+                fontFamily: 'Roboto',
+                fontWeight: 'bold',
+                fontSize: '0.938rem',
+                color: 'hsl(206, 100%, 82.35%)',
+                background: 'hsl(209.19, 41.57%, 17.45%)',
+              }}
             >
-              <div className='location-pin' style={{ top: `${location.top}px`, left: `${location.left}px` }} />
-            </HtmlTooltip>
-          );
-        })}
-      </div>
-      <div className={`decision-wrapper ${visible}`} style={{ visibility: hidden ? 'hidden' : 'visible' }}>
-        <div className='decision-title'>Are You Sure You Want To Spawn At</div>
-        <div className='decision-desc'>{chosenData.label}</div>
-        <div className='decision-button-wrapper'>
-          <Button
-            className='button'
-            variant="contained"
-            onClick={() => spawnCharacter(chosenData)}
-            style={{
-              fontFamily: 'Roboto',
-              fontWeight: 'bold',
-              fontSize: '0.938rem',
-              color: 'hsl(206, 100%, 82.35%)',
-              background: 'hsl(209.19, 41.57%, 17.45%)',
-            }}
-          >
-            Spawn
-          </Button>
-          <Button
-            className='button'
-            variant="contained"
-            onClick={cancel}
-            style={{
-              fontFamily: 'Roboto',
-              fontWeight: 'bold',
-              fontSize: '0.938rem',
-              color: 'hsl(0, 0%, 100%)',
-              background: 'hsl(230, 7.5%, 15.69%)',
-            }}
-          >
-            Cancel
-          </Button>
+              Spawn
+            </Button>
+            <Button
+              className='button'
+              variant='contained'
+              onClick={cancel}
+              style={{
+                fontFamily: 'Roboto',
+                fontWeight: 'bold',
+                fontSize: '0.938rem',
+                color: 'hsl(0, 0%, 100%)',
+                background: 'hsl(230, 7.5%, 15.69%)',
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
       <div className='last-location'>
-      <Button
-        color='info'
-        style={{
-          width: '12.5rem',
-          height: '3.125rem',
-          border: '2px solid hsl(220, 17%, 37%)',
-          top: '10%',
-          left: '10%',
-          fontSize: '1.25rem',
-          fontFamily: 'DevX32',
-          background: 'hsl(0, 0%, 13%)',
-        }}
-        variant='contained'
-        onClick={lastLocation}
-      >
-        Last Location
-      </Button>
+        <Button
+          color='info'
+          style={{
+            width: '12.5rem',
+            height: '3.125rem',
+            border: '2px solid hsl(220, 17%, 37%)',
+            top: '10%',
+            left: '10%',
+            fontSize: '1.25rem',
+            fontFamily: 'DevX32',
+            background: 'hsl(0, 0%, 13%)',
+          }}
+          variant='contained'
+          onClick={lastLocation}
+        >
+          Last Location
+        </Button>
       </div>
     </div>
   );
-}
+};
 
 export default App;

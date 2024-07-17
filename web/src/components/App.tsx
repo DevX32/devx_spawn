@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { debugData } from "../utils/debugData";
 import { useNuiEvent } from "../hooks/useNuiEvent";
-import map from './images/map.png';
-import { fetchNui } from '../utils/fetchNui';
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import InformationPanel from './InformationPanel';
+import MapComponent from './MapComponent';
+import LocationPins from './LocationPins';
+import SpawnDecision from './SpawnDecision';
+import LastLocationButton from './LastLocationButton';
 
 // This will set the NUI to visible if we are developing in browser
 debugData([
@@ -29,20 +29,6 @@ interface LocationsInterface {
   label: string;
   spawns: SpawnInterface[];
 }
-
-const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(() => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: '#212121',
-    border: '0.125rem solid hsl(220, 17%, 37%)',
-    borderRadius: '0.125rem',
-    color: 'hsl(0, 0%, 100%)',
-    maxWidth: 220,
-    fontSize: '0.875rem',
-    padding: '0.625rem',
-  },
-}));
 
 const App: React.FC = () => {
   const [show, setShow] = useState(false);
@@ -106,19 +92,10 @@ const App: React.FC = () => {
   useNuiEvent('setVisible', (data) => {
     setShow(data.visible);
   });
-
+  
   useNuiEvent('setLocations', (data) => {
     setLocations(data);
   });
-
-  const spawnCharacter = (data: SpawnInterface) => {
-    setVisible(false);
-    fetchNui('spawnCharacter', data);
-  };
-
-  const cancel = () => {
-    setVisible(false);
-  };
 
   const lastLocation = () => {
     setChosenData({ label: 'Last Location', x: 0, y: 0, z: 0 });
@@ -138,90 +115,24 @@ const App: React.FC = () => {
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
+  
+  const [infoData, setInfoData] = useState({
+    time: '10:00 AM',
+    date: 'Saturday, May 14',
+    weather: 'Xmas',
+    temp: '27',
+    wind: '1',
+  });
 
   return (
     <div className='nui-wrapper'>
       <div className='devx32-text'>CHOOSE WHERE TO APPEAR</div>
       <div className='devx32-text2'>SPAWN SELECT</div>
-      <div className='map-shell'>
-        <div className='img-wrapper'>
-          <img src={map} className='map' alt='Map' />
-        </div>
-      </div>
-      <div className='locations'>
-        {locations.map((location, key) => (
-          <HtmlTooltip
-            key={key}
-            title={
-              <div className='tooltip-wrapper'>
-                <div className='tooltip-title'>{location.label}</div>
-                {location.spawns.map((spawn, index) => (
-                  <div className='tooltip-button' key={index} onClick={() => spawnCharacter(spawn)}>
-                    {spawn.label}
-                  </div>
-                ))}
-              </div>
-            }
-          >
-            <div className='location-pin' style={{ top: `${location.top}px`, left: `${location.left}px` }} />
-          </HtmlTooltip>
-        ))}
-      </div>
-      {visible && (
-        <div className='decision-wrapper'>
-          <div className='decision-title'>Are You Sure You Want To Spawn At</div>
-          <div className='decision-desc'>{chosenData.label}</div>
-          <div className='decision-button-wrapper'>
-            <Button
-              className='button'
-              variant='contained'
-              onClick={() => spawnCharacter(chosenData)}
-              style={{
-                fontFamily: 'Roboto',
-                fontWeight: 'bold',
-                fontSize: '0.938rem',
-                color: 'hsl(206, 100%, 82.35%)',
-                background: 'hsl(209.19, 41.57%, 17.45%)',
-              }}
-            >
-              Spawn
-            </Button>
-            <Button
-              className='button'
-              variant='contained'
-              onClick={cancel}
-              style={{
-                fontFamily: 'Roboto',
-                fontWeight: 'bold',
-                fontSize: '0.938rem',
-                color: 'hsl(0, 0%, 100%)',
-                background: 'hsl(230, 7.5%, 15.69%)',
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
-      )}
-      <div className='last-location'>
-        <Button
-          color='info'
-          style={{
-            width: '12.5rem',
-            height: '3.125rem',
-            border: '2px solid hsl(220, 17%, 37%)',
-            top: '10%',
-            left: '10%',
-            fontSize: '1.25rem',
-            fontFamily: 'DevX32',
-            background: 'hsl(0, 0%, 13%)',
-          }}
-          variant='contained'
-          onClick={lastLocation}
-        >
-          Last Location
-        </Button>
-      </div>
+      <InformationPanel {...infoData} />
+      <MapComponent />
+      <LocationPins locations={locations} />
+      <SpawnDecision visible={visible} chosenData={chosenData} setVisible={setVisible} setChosenData={setChosenData} />
+      <LastLocationButton onClick={lastLocation} />
     </div>
   );
 };

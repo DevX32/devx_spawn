@@ -1,0 +1,75 @@
+:root {
+  --background-color: hsl(0, 0%, 13%);
+  --border-color: hsl(220, 17%, 37%);
+  --primary-color: hsl(201, 79%, 56%);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --text-color: hsl(192, 16%, 94%);
+}
+
+@font-face {
+  font-family: 'DevX32';
+  src: url('fonts/a_RubricaXtCn.ttf');
+}
+
+body {
+  user-select: none;
+  overflow: hidden;
+  font-family: 'Roboto';
+  background-color: var(--background-color);
+}
+
+.nui-wrapper {
+  position: absolute;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nui-wrapper.true {
+  animation: SlideUpBig 1s;
+  animation-fill-mode: forwards;
+}
+
+.nui-wrapper.false {
+  animation: SlideDownBig 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes SlideUpBig {
+  0% { top: -1080px; }
+  100% { top: 0px; }
+}
+
+@keyframes SlideDownBig {
+  0% { top: 0px; }
+  100% { top: -1080px; }
+}
+
+.map-shell {
+  background-color: var(--background-color);
+  filter: drop-shadow(0px 0px 3px var(--shadow-color));
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map {
+  height: 882px;
+  width: 1432px;
+  position: relative;
+  object-fit: cover;
+}
+
+.img-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 882px;
+  width: 1432px;
+  border-radius: 5px;
+}

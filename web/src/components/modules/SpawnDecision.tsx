@@ -18,14 +18,9 @@ interface SpawnDecisionProps {
 }
 
 const SpawnDecision: React.FC<SpawnDecisionProps> = ({ visible, chosenData, setVisible, setChosenData }) => {
-  const spawnCharacter = async (data: SpawnInterface) => {
-    try {
-      await fetchNui('spawnCharacter', data);
-    } catch (error) {
-      console.error('Failed to spawn character:', error);
-    } finally {
-      setVisible(false);
-    }
+  const spawnCharacter = (data: SpawnInterface) => {
+    setVisible(false);
+    fetchNui('spawnCharacter', data);
   };
 
   const cancel = () => {
@@ -33,22 +28,32 @@ const SpawnDecision: React.FC<SpawnDecisionProps> = ({ visible, chosenData, setV
   };
 
   return (
-    <div className={`decision-wrapper ${visible ? 'visible' : 'hidden'}`}>
+    <div className={`decision-wrapper ${visible ? 'true' : 'false'}`}>
       <div className='decision-title'>Are You Sure You Want To Spawn At</div>
       <div className='decision-desc'>{chosenData.label}</div>
       <div className='decision-button-wrapper'>
         <Button
-          className='button spawn-button'
+          style={{
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: 'bold',
+            fontSize: '0.938rem',
+            color: 'hsl(206, 100%, 82.35%)',
+            backgroundColor: 'hsl(209.19, 41.57%, 17.45%)',
+          }}
           variant='contained'
-          color='primary'
           onClick={() => spawnCharacter(chosenData)}
         >
           Spawn
         </Button>
         <Button
-          className='button cancel-button'
-          variant='outlined'
-          color='secondary'
+          style={{
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: 'bold',
+            fontSize: '0.938rem',
+            color: 'hsl(0, 0%, 100%)',
+            backgroundColor: 'hsl(230, 7.5%, 15.69%)',
+          }}
+          variant='contained'
           onClick={cancel}
         >
           Cancel

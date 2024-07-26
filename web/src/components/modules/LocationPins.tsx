@@ -1,20 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { fetchNui } from '../../utils/fetchNui';
-
-interface SpawnInterface {
-  label: string;
-  x: number;
-  y: number;
-  z: number;
-}
 
 interface LocationsInterface {
   top: number;
   left: number;
   label: string;
-  spawns: SpawnInterface[];
 }
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -36,27 +28,54 @@ interface LocationPinsProps {
 }
 
 const LocationPins: React.FC<LocationPinsProps> = ({ locations }) => {
-  const spawnCharacter = (data: SpawnInterface) => {
-    fetchNui('spawnCharacter', data);
+  const [openTooltipIndex, setOpenTooltipIndex] = useState<number | null>(null);
+
+  const handleTooltipOpen = (index: number) => {
+    setOpenTooltipIndex(index);
+  };
+
+  const handleTooltipClose = () => {
+    setOpenTooltipIndex(null);
+  };
+
+  const spawnCharacter = async (data: any) => {
+    try {
+      await fetchNui('spawnCharacter', data);
+      handleTooltipClose();
+    } catch (error) {
+      console.error('Failed to spawn character:', error);
+    }
   };
 
   return (
     <div className='locations'>
-      {locations.map((location, index) => (
+      {locations && locations.map((data, key) => (
         <HtmlTooltip
-          key={index}
+          key={key}
+          open={openTooltipIndex === key}
+          onClose={handleTooltipClose}
+          onOpen={() => handleTooltipOpen(key)}
           title={
-            <div className='tooltip-wrapper'>
-              <div className='tooltip-title'>{location.label}</div>
-              {location.spawns.map((spawn, spawnIndex) => (
-                <div className='tooltip-button' key={spawnIndex} onClick={() => spawnCharacter(spawn)}>
-                  {spawn.label}
-                </div>
-              ))}
-            </div>
+            <React.Fragment>
+              <div className='tooltip-wrapper'>
+                <div className='tooltip-title'>{data.label}</div>
+                  <div 
+                    className='tooltip-button' 
+                    onClick={() => {
+                      spawnCharacter(data);
+                      handleTooltipClose();
+                    }}
+                  >
+                    Spawn
+                  </div>
+              </div>
+            </React.Fragment>
           }
         >
-          <div className='location-pin' style={{ top: `${location.top}px`, left: `${location.left}px` }} />
+          <div 
+            className='location-pin' 
+            style={{ top: `${data.top}px`, left: `${data.left}px` }} 
+          />
         </HtmlTooltip>
       ))}
     </div>

@@ -15,7 +15,6 @@ body {
   user-select: none;
   overflow: hidden;
   font-family: 'Roboto';
-  background-color: var(--background-color);
 }
 
 .nui-wrapper {

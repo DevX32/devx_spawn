@@ -57,22 +57,6 @@
   column-gap: 20px;
 }
 
-.button {
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
-  font-size: 0.938rem;
-}
-
-.spawn-button {
-  color: hsl(206, 100%, 82.35%);
-  background: hsl(209.19, 41.57%, 17.45%);
-}
-
-.cancel-button {
-  color: hsl(0, 0%, 100%);
-  background: hsl(230, 7.5%, 15.69%);
-}
-
 .tooltip-wrapper {
   display: flex;
   flex-direction: column;
@@ -162,4 +146,43 @@
   right: 5vw;
   bottom: 5vw;
   transition: all 0.5s;
+}
+
+.nui-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.property-spawner {
+  background-color: #212121;
+  color: hsl(206, 100%, 82.35%);
+  font-style: italic;
+  font-size: 12px;
+  border-radius: 5px;
+  position: absolute;
+  top: 60px;
+  right: 230px;
+  width: 250px;
+}
+
+.property-spawner h2 {
+  margin: 0 0 10px;
+}
+
+.property-spawner ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.property-spawner li {
+  cursor: pointer;
+  padding: 1px;
+  border-bottom: 1px solid #ddd;
+}
+
+.property-spawner li:hover {
+  background-color: #efefef;
 }

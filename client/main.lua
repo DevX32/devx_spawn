@@ -19,12 +19,6 @@ local function ToggleNuiFrame(shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
 
-RegisterCommand('spawn', function()
-    PlayerLoaded = true
-    shouldShow = not shouldShow
-    ToggleNuiFrame(shouldShow)
-end)
-
 local function ToggleSound(state)
     if state then
         StartAudioScene("MP_LEADERBOARD_SCENE")

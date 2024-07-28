@@ -25,9 +25,10 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 
 interface LocationPinsProps {
   locations: LocationsInterface[];
+  setVisible: (visible: boolean) => void;
 }
 
-const LocationPins: React.FC<LocationPinsProps> = ({ locations }) => {
+const LocationPins: React.FC<LocationPinsProps> = ({ locations, setVisible }) => {
   const [openTooltipIndex, setOpenTooltipIndex] = useState<number | null>(null);
 
   const handleTooltipOpen = (index: number) => {
@@ -38,14 +39,11 @@ const LocationPins: React.FC<LocationPinsProps> = ({ locations }) => {
     setOpenTooltipIndex(null);
   };
 
-  const spawnCharacter = async (data: any) => {
-    try {
-      await fetchNui('spawnCharacter', data);
-      handleTooltipClose();
-    } catch (error) {
-      console.error('Failed to spawn character:', error);
-    }
-  };
+  const spawnCharacter = (data: any) => {
+    setVisible(false);
+    fetchNui('spawnCharacter', data);
+    handleTooltipClose();
+	};
 
   return (
     <div className='locations'>

@@ -18,7 +18,7 @@ interface SpawnDecisionProps {
 }
 
 const SpawnDecision: React.FC<SpawnDecisionProps> = ({ visible, chosenData, setVisible, setChosenData }) => {
-  const spawnCharacter = (data: SpawnInterface) => {
+  const spawnCharacter = (data: any) => {
     setVisible(false);
     fetchNui('spawnCharacter', data);
   };

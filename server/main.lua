@@ -1,16 +1,18 @@
 if Config.Framework == "qb-core" then
-    QBCore = exports['Core']:GetCoreObject()
+    QBCore = exports[Config.Framework]:GetCoreObject()
 elseif Config.Framework == "esx" then
     ESX = exports.es_extended:getSharedObject()
 end
 
+--[[
 local DAYS = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" }
 local MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
+]]
 
 local function getFormattedDate()
     local currentDate = os.date("*t")
-    local day = DAYS[currentDate.wday]
-    local month = MONTHS[currentDate.month]
+    local day = Config.Days[currentDate.wday]
+    local month = Config.Months[currentDate.month]
     return string.format("%s, %s %d", day, month, currentDate.day)
 end
 

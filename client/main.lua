@@ -9,7 +9,7 @@ local MUTE_SOUND = true
 local LAST_LOCATION = nil
 
 if Config.Framework == "qb-core" then
-    QBCore = exports['Core']:GetCoreObject()
+    QBCore = exports[Config.Framework]:GetCoreObject()
 elseif Config.Framework == "esx" then
     ESX = exports.es_extended:getSharedObject()
 end
@@ -18,6 +18,12 @@ local function ToggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
+
+RegisterCommand('spawn', function()
+    PlayerLoaded = true
+    shouldShow = not shouldShow
+    ToggleNuiFrame(shouldShow)
+end)
 
 local function ToggleSound(state)
     if state then

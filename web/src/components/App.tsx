@@ -48,7 +48,7 @@ const App: React.FC = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
-  useNuiEvent('setVisible', (data) => setShow(data.visible));
+  useNuiEvent('setVisible', (data) => setShow(data));
   useNuiEvent('setLocations', (data) => setLocations(data));
   useNuiEvent('updateInfo', (data) => setInfoData(data));
   useNuiEvent('setProperties', (data) => setProperties(data));
@@ -88,7 +88,7 @@ const App: React.FC = () => {
       <SpawnInfo text="SPAWN SELECT" />
       <InformationPanel {...infoData} />
       <MapComponent />
-      <LocationPins locations={locations} />
+      <LocationPins locations={locations} setVisible={setVisible} />
       <PropertySpawner properties={properties} onSelect={handlePropertySelect} />
       <SpawnDecision
         visible={visible}

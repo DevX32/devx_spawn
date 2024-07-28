@@ -9,6 +9,7 @@ import SpawnDecision from './modules/SpawnDecision';
 import LastLocationButton from './modules/LastLocationButton';
 import InformationPanel from './modules/InformationPanel';
 import PropertySpawner from './modules/PropertySpawner';
+import { getHouses } from '../utils/getHouses';
 
 debugData([{ action: 'setVisible', data: true }]);
 
@@ -72,6 +73,14 @@ const App: React.FC = () => {
     setSelectedProperty(property);
     setVisible(true);
   };
+
+  useEffect(() => {
+    getHouses().then((houses) => {
+      setProperties(houses);
+    }).catch((error) => {
+      console.error('Failed to fetch houses:', error);
+    });
+  }, []);
 
   return (
     <div className='nui-wrapper'>

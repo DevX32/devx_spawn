@@ -68,7 +68,7 @@ local function SetCam(campos)
     DoScreenFadeIn(250)
 end
 
-RegisterNetEvent('devx_spawn:client:openUI', function()
+RegisterNetEvent('devx_spawn:initInterface', function()
     DoScreenFadeOut(250)
     Wait(1000)
     DoScreenFadeIn(250)

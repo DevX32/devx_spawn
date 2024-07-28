@@ -28,41 +28,38 @@ const SpawnDecision: React.FC<SpawnDecisionProps> = ({ visible, chosenData, setV
   };
 
   return (
-    <>
-      <div className={`background-dim ${visible ? 'visible' : ''}`}></div>
-      <div className={`decision-wrapper ${visible ? 'true' : 'false'}`}>
-        <div className='decision-title'>Are You Sure You Want To Spawn At</div>
-        <div className='decision-desc'>{chosenData.label}</div>
-        <div className='decision-button-wrapper'>
-          <Button
-            style={{
-              fontFamily: 'Roboto, sans-serif',
-              fontWeight: 'bold',
-              fontSize: '0.938rem',
-              color: 'hsl(206, 100%, 82.35%)',
-              backgroundColor: 'hsl(209.19, 41.57%, 17.45%)',
-            }}
-            variant='contained'
-            onClick={() => spawnCharacter(chosenData)}
-          >
-            Spawn
-          </Button>
-          <Button
-            style={{
-              fontFamily: 'Roboto, sans-serif',
-              fontWeight: 'bold',
-              fontSize: '0.938rem',
-              color: 'hsl(0, 0%, 100%)',
-              backgroundColor: 'hsl(230, 7.5%, 15.69%)',
-            }}
-            variant='contained'
-            onClick={cancel}
-          >
-            Cancel
-          </Button>
-        </div>
+    <div className={`decision-wrapper ${visible ? 'true' : 'false'}`}>
+      <div className='decision-title'>Are You Sure You Want To Spawn At</div>
+      <div className='decision-desc'>{chosenData.label}</div>
+      <div className='decision-button-wrapper'>
+        <Button
+          style={{
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: 'bold',
+            fontSize: '0.938rem',
+            color: 'hsl(206, 100%, 82.35%)',
+            backgroundColor: 'hsl(209.19, 41.57%, 17.45%)',
+          }}
+          variant='contained'
+          onClick={() => spawnCharacter(chosenData)}
+        >
+          Spawn
+        </Button>
+        <Button
+          style={{
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: 'bold',
+            fontSize: '0.938rem',
+            color: 'hsl(0, 0%, 100%)',
+            backgroundColor: 'hsl(230, 7.5%, 15.69%)',
+          }}
+          variant='contained'
+          onClick={cancel}
+        >
+          Cancel
+        </Button>
       </div>
-    </>
+    </div>
   );
 };
 

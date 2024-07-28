@@ -17,10 +17,10 @@ interface InfoRowProps {
 
 const InformationContainer = styled.div`
   position: absolute;
-  top: 44rem;
+  bottom: 7rem;
   left: 16rem;
   width: 220px;
-  height: 200px;
+  height: 220px;
   background: var(--background-color);
   border: 1px solid var(--border-color);
   filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));

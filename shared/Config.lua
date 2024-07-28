@@ -1,5 +1,6 @@
 Config = {
     Framework = "qb-core", -- "qb-core" or "esx"
+    Property = "qb-housing", -- "qb-housing" or "ps-housing"
     Locations = {
         {
             top = 670,

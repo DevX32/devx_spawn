@@ -127,7 +127,7 @@
 
 .location-pin:hover {
   box-shadow: 0rem 0rem 1.125rem 0.25rem rgba(66, 66, 66, 0.75);
-  background-color: hsl(263, 74%, 43%);
+  background-color: linear-gradient(115deg, hsl(263, 74%, 43%), hsl(0, 0%, 13%), hsl(0, 0%, 13%));
   border-color: hsl(0, 0%, 13%);
 }
 

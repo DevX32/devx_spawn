@@ -1,8 +1,8 @@
 Config = {
+    Locale = "en",  -- Default locales en = English, np = Nepali
     Framework = "qb-core", -- "qb-core" or "esx"
     Property = "qb-housing", -- "qb-housing" or "ps-housing"
-    Days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" },
-    Months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" },
+    ForceLastLocation = true,  -- Set to false if you don't want to force spawn when player isdead at last location
     Locations = {
         {
             top = 670,

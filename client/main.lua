@@ -7,6 +7,8 @@ local CAM_TRANSITION_TIME_2 = 1000
 local CLOUD_OPACITY = 0.01
 local MUTE_SOUND = true
 local LAST_LOCATION = nil
+local locales = require("locales.locales")
+local locale = locales[Config.Locale] or locales.en
 
 if Config.Framework == "qb-core" then
     QBCore = exports[Config.Framework]:GetCoreObject()
@@ -18,7 +20,6 @@ local function toggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
-
 
 local function toggleSound(state)
     if state then
@@ -94,14 +95,28 @@ RegisterNUICallback('spawnCharacter', function(data)
     elseif Config.Framework == "esx" then
         PlayerData = ESX.GetPlayerData()
     end
-    if data.label == 'Last Location' then
+    local isDead = IsEntityDead(PlayerPedId())
+    if isDead and Config.ForceLastLocation then
         if LAST_LOCATION then
             camPos = { x = PlayerData.position.x, y = PlayerData.position.y, z = PlayerData.position.z }
         else
             camPos = { x = -206.19, y = -1013.78, z = 30.13 }
         end
+        lib.notify({
+            title = 'Spawned Last Location',
+            description = locale.ErrorMessages.Dead_Error,
+            type = 'inform'
+        })
     else
-        camPos = { x = data.x, y = data.y, z = data.z }
+        if data.label == 'Last Location' then
+            if LAST_LOCATION then
+                camPos = { x = PlayerData.position.x, y = PlayerData.position.y, z = PlayerData.position.z }
+            else
+                camPos = { x = -206.19, y = -1013.78, z = 30.13 }
+            end
+        else
+            camPos = { x = data.x, y = data.y, z = data.z }
+        end
     end
     toggleNuiFrame(false)
     local playerPed = PlayerPedId()

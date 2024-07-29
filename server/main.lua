@@ -1,3 +1,6 @@
+local locales = require("locales.locales")
+local locale = locales[Config.Locale] or locales.en
+
 if Config.Framework == "qb-core" then
     QBCore = exports[Config.Framework]:GetCoreObject()
 elseif Config.Framework == "esx" then
@@ -6,8 +9,8 @@ end
 
 local function getFormattedDate()
     local currentDate = os.date("*t")
-    local day = Config.Days[currentDate.wday]
-    local month = Config.Months[currentDate.month]
+    local day = locale.Days[currentDate.wday]
+    local month = locale.Months[currentDate.month]
     return string.format("%s, %s %d", day, month, currentDate.day)
 end
 
@@ -25,6 +28,7 @@ lib.callback.register('devx_spawn:server:getProperty', function(source)
         player = ESX.GetPlayerFromId(source)
     end
     local houseData = {}
+    local playerHouses
     if Config.Property == "qb-housing" then
         playerHouses = MySQL.query.await('SELECT house FROM player_houses WHERE citizenid = ?', { player.PlayerData.citizenid })
     elseif Config.Property == "ps-housing" then

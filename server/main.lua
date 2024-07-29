@@ -4,11 +4,6 @@ elseif Config.Framework == "esx" then
     ESX = exports.es_extended:getSharedObject()
 end
 
---[[
-local DAYS = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" }
-local MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
-]]
-
 local function getFormattedDate()
     local currentDate = os.date("*t")
     local day = Config.Days[currentDate.wday]
@@ -23,6 +18,7 @@ AddEventHandler('sendData', function()
 end)
 
 lib.callback.register('devx_spawn:server:getProperty', function(source)
+    local player
     if Config.Framework == "qb-core" then
         player = QBCore.Functions.GetPlayer(source)
     elseif Config.Framework == "esx" then

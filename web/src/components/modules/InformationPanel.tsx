@@ -19,16 +19,16 @@ const InformationContainer = styled.div`
   position: absolute;
   bottom: 7rem;
   left: 16rem;
-  width: 220px;
-  height: 220px;
+  width: 13.75rem;
+  height: 13.75rem;
   background: var(--background-color);
-  border: 1px solid var(--border-color);
-  filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
-  border-radius: 3px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  border: 0.0625rem solid var(--border-color);
+  filter: drop-shadow(0 0 0.125rem var(--shadow-color));
+  border-radius: 0.1875rem;
+  box-shadow: 0 0.125rem 0.125rem var(--shadow-color);
   color: var(--text-color);
-  font-size: 15px;
-  padding: 10px;
+  font-size: 0.9375rem;
+  padding: 0.625rem;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -56,12 +56,12 @@ const IconWrapper = styled.div`
 
 const Title = styled.div`
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1rem;
 `;
 
 const Description = styled.div`
   opacity: 0.8;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--secondary-text-color);
 `;
 

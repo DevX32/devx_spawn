@@ -14,7 +14,7 @@
 body {
   user-select: none;
   overflow: hidden;
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
 }
 
 .nui-wrapper {
@@ -28,38 +28,38 @@ body {
 }
 
 .nui-wrapper.true {
-  animation: SlideUpBig 1s;
+  animation: SlideUpBig 1s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .nui-wrapper.false {
-  animation: SlideDownBig 1s;
+  animation: SlideDownBig 1s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 @keyframes SlideUpBig {
-  0% { top: -1080px; }
-  100% { top: 0px; }
+  0% { top: -68rem; }
+  100% { top: 0; }
 }
 
 @keyframes SlideDownBig {
-  0% { top: 0px; }
-  100% { top: -1080px; }
+  0% { top: 0; }
+  100% { top: -68rem; }
 }
 
 .map-shell {
   background-color: var(--background-color);
-  filter: drop-shadow(0px 0px 3px var(--shadow-color));
-  border-radius: 10px;
-  padding: 12px;
+  filter: drop-shadow(0 0 0.2rem var(--shadow-color));
+  border-radius: 0.625rem;
+  padding: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .map {
-  height: 882px;
-  width: 1432px;
+  height: 55.125rem;
+  width: 89.5rem;
   position: relative;
   object-fit: cover;
 }
@@ -68,7 +68,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 882px;
-  width: 1432px;
-  border-radius: 5px;
+  height: 55.125rem;
+  width: 89.5rem;
+  border-radius: 0.3125rem;
 }

@@ -16,7 +16,7 @@ const LastLocationButton: React.FC<Props> = ({ onClick }) => {
           border: '0.1vw solid hsl(220, 17%, 37%)',
           fontSize: '1vw',
           right: '120%',
-          bottom: '6px',
+          bottom: ' 0.375rem',
           fontFamily: 'DevX32',
           backgroundColor: 'hsl(0, 0%, 13%)',
         }}

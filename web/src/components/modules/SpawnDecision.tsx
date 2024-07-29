@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { fetchNui } from '../../utils/fetchNui';
 import '../styles/modules.css';
@@ -18,6 +18,16 @@ interface SpawnDecisionProps {
 }
 
 const SpawnDecision: React.FC<SpawnDecisionProps> = ({ visible, chosenData, setVisible, setChosenData }) => {
+  const [hidden, setHidden] = useState(true);
+
+  useEffect(() => {
+    if (visible) {
+      setHidden(false);
+    } else {
+      setHidden(true);
+    }
+  }, [visible]);
+
   const spawnCharacter = (data: any) => {
     setVisible(false);
     fetchNui('spawnCharacter', data);
@@ -28,7 +38,7 @@ const SpawnDecision: React.FC<SpawnDecisionProps> = ({ visible, chosenData, setV
   };
 
   return (
-    <div className={`decision-wrapper ${visible ? 'true' : 'false'}`}>
+    <div className={`decision-wrapper ${visible}`} style={{ visibility: hidden ? 'hidden' : 'visible' }}>
       <div className='decision-title'>Are You Sure You Want To Spawn At</div>
       <div className='decision-desc'>{chosenData.label}</div>
       <div className='decision-button-wrapper'>

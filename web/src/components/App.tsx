@@ -28,6 +28,7 @@ interface Property {
 const App: React.FC = () => {
   const [show, setShow] = useState(false);
   const [showHidden, setShowHidden] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [hidden, setHidden] = useState(true);
   const [visible, setVisible] = useState(false);
   const [chosenData, setChosenData] = useState({ label: '', x: 0, y: 0, z: 0 });
@@ -46,11 +47,12 @@ const App: React.FC = () => {
     { top: 340, left: 1020, label: 'Mirror Park' },
   ]);
   const [properties, setProperties] = useState<Property[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
   useNuiEvent('setVisible', (data) => setShow(data));
   useNuiEvent('setLocations', (data) => setLocations(data));
-  useNuiEvent('updateInfo', (data) => setInfoData(data));
+  useNuiEvent('infoPanel', (data) => setInfoData(data));
   useNuiEvent('setProperties', (data) => setProperties(data));
   useNuiEvent('spawnProperty', (property) => setSelectedProperty(property));
 
@@ -83,7 +85,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className='nui-wrapper'>
+    <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
       <SpawnInfo text="CHOOSE WHERE TO APPEAR" />
       <SpawnInfo text="SPAWN SELECT" />
       <InformationPanel {...infoData} />

@@ -110,10 +110,17 @@ RegisterNUICallback('spawnCharacter', function(data)
         camPos = { x = data.x, y = data.y, z = data.z }
     end
     ToggleNuiFrame(false)
-    FreezeEntityPosition(PlayerPedId(), true)
-    SetEntityVisible(PlayerPedId(), false, 0)
+    local playerPed = PlayerPedId()
+    FreezeEntityPosition(playerPed, true)
+    SetEntityVisible(playerPed, false, 0)
     SetCam(camPos)
-    FreezeEntityPosition(PlayerPedId(), false)
+    if Config.Framework == "qb-core" then
+        TriggerEvent('qb-clothing:client:loadPlayerClothing', PlayerData.citizenid)
+    elseif Config.Framework == "esx" then
+        TriggerEvent('skinchanger:loadSkin', PlayerData.skin)
+    end
+    FreezeEntityPosition(playerPed, false)
+    SetEntityVisible(playerPed, true, 0)
 end)
 
 local function round(number)

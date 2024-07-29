@@ -1,9 +1,9 @@
-local CAM_Z_PLUS_1 = 1000
-local CAM_Z_PLUS_2 = 50
-local POINT_CAM_COORDS = 75
-local POINT_CAM_COORDS_2 = 0
-local CAM1_TIME = 500
-local CAM2_TIME = 1000
+local CAM_Z_OFFSET_1 = 1000
+local CAM_Z_OFFSET_2 = 50
+local CAM_POINT_OFFSET_1 = 75
+local CAM_POINT_OFFSET_2 = 0
+local CAM_TRANSITION_TIME_1 = 500
+local CAM_TRANSITION_TIME_2 = 1000
 local CLOUD_OPACITY = 0.01
 local MUTE_SOUND = true
 local LAST_LOCATION = nil
@@ -14,18 +14,13 @@ elseif Config.Framework == "esx" then
     ESX = exports.es_extended:getSharedObject()
 end
 
-local function ToggleNuiFrame(shouldShow)
+local function toggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
 
-RegisterCommand('spawn', function()
-    PlayerLoaded = true
-    shouldShow = not shouldShow
-    ToggleNuiFrame(shouldShow)
-end)
 
-local function ToggleSound(state)
+local function toggleSound(state)
     if state then
         StartAudioScene("MP_LEADERBOARD_SCENE")
     else
@@ -33,34 +28,34 @@ local function ToggleSound(state)
     end
 end
 
-local function ClearScreen()
+local function clearScreen()
     SetCloudHatOpacity(CLOUD_OPACITY)
     SetDrawOrigin(0.0, 0.0, 0.0, 0)
 end
 
-local function InitialSetup()
-    ToggleSound(MUTE_SOUND)
+local function initialSetup()
+    toggleSound(MUTE_SOUND)
     SwitchOutPlayer(PlayerPedId(), 0, 1)
 end
 
-local function SetCam(campos)
-    local cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + CAM_Z_PLUS_1, 300.00, 0.00, 0.00, 110.00, false, 0)
-    local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + CAM_Z_PLUS_2, 300.00, 0.00, 0.00, 110.00, false, 0)
-    PointCamAtCoord(cam, campos.x, campos.y, campos.z + POINT_CAM_COORDS)
-    SetCamActiveWithInterp(cam, cam2, CAM1_TIME, true, true)
+local function setupCameraTransition(campos)
+    local cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + CAM_Z_OFFSET_1, 300.00, 0.00, 0.00, 110.00, false, 0)
+    local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + CAM_Z_OFFSET_2, 300.00, 0.00, 0.00, 110.00, false, 0)
+    PointCamAtCoord(cam1, campos.x, campos.y, campos.z + CAM_POINT_OFFSET_1)
+    SetCamActiveWithInterp(cam1, cam2, CAM_TRANSITION_TIME_1, true, true)
     if DoesCamExist(cam2) then
         DestroyCam(cam2, true)
     end
-    Wait(CAM1_TIME)
-    PointCamAtCoord(cam2, campos.x, campos.y, campos.z + POINT_CAM_COORDS_2)
-    SetCamActiveWithInterp(cam2, cam2, CAM2_TIME, true, true)
+    Wait(CAM_TRANSITION_TIME_1)
+    PointCamAtCoord(cam2, campos.x, campos.y, campos.z + CAM_POINT_OFFSET_2)
+    SetCamActiveWithInterp(cam2, cam2, CAM_TRANSITION_TIME_2, true, true)
     SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
     DoScreenFadeOut(500)
     Wait(2000)
     FreezeEntityPosition(PlayerPedId(), false)
     RenderScriptCams(false, true, 500, true, true)
-    SetCamActive(cam, false)
-    DestroyCam(cam, true)
+    SetCamActive(cam1, false)
+    DestroyCam(cam1, true)
     SetCamActive(cam2, false)
     DestroyCam(cam2, true)
     SetEntityVisible(PlayerPedId(), true)
@@ -72,7 +67,7 @@ RegisterNetEvent('devx_spawn:initInterface', function()
     DoScreenFadeOut(250)
     Wait(1000)
     DoScreenFadeIn(250)
-    ToggleNuiFrame(true)
+    toggleNuiFrame(true)
     SendReactMessage('setLocations', Config.Locations)
     if Config.Framework == "qb-core" then
         PlayerData = QBCore.Functions.GetPlayerData()
@@ -82,14 +77,13 @@ RegisterNetEvent('devx_spawn:initInterface', function()
     if PlayerData then
         LAST_LOCATION = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     end
-    local camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + CAM_Z_PLUS_1, -85.00, 0.00, 0.00, 100.00, false, 0)
+    local camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + CAM_Z_OFFSET_1, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(camera, true)
     RenderScriptCams(true, false, 1, true, true)
 end)
 
 RegisterNUICallback('hideFrame', function(_, cb)
-    ToggleNuiFrame(false)
-    debugPrint('Hide NUI frame')
+    toggleNuiFrame(false)
     cb({})
 end)
 
@@ -109,11 +103,11 @@ RegisterNUICallback('spawnCharacter', function(data)
     else
         camPos = { x = data.x, y = data.y, z = data.z }
     end
-    ToggleNuiFrame(false)
+    toggleNuiFrame(false)
     local playerPed = PlayerPedId()
     FreezeEntityPosition(playerPed, true)
     SetEntityVisible(playerPed, false, 0)
-    SetCam(camPos)
+    setupCameraTransition(camPos)
     if Config.Framework == "qb-core" then
         TriggerEvent('qb-clothing:client:loadPlayerClothing', PlayerData.citizenid)
     elseif Config.Framework == "esx" then
@@ -142,8 +136,6 @@ end
 
 local function getCurrentWeatherInfo()
     local weatherId = GetPrevWeatherTypeHashName()
-    local weatherName = "Unknown"
-    local temperature = 0
     local weatherMapping = {
         [916995460] = {name = "Clear", temp = 24},
         [-1750463879] = {name = "Extra Sunny", temp = 35},
@@ -156,6 +148,8 @@ local function getCurrentWeatherInfo()
         [669657108] = {name = "Blizzard", temp = -7},
         [603685163] = {name = "Light Snow", temp = -4}
     }
+    local weatherName = "Unknown"
+    local temperature = 0
     if weatherMapping[weatherId] then
         weatherName = weatherMapping[weatherId].name
         temperature = weatherMapping[weatherId].temp

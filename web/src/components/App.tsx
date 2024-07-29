@@ -77,11 +77,15 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    getHouses().then((houses) => {
-      setProperties(houses);
-    }).catch((error) => {
-      console.error('Failed to fetch houses:', error);
-    });
+    const fetchHouses = async () => {
+      try {
+        const houses = await getHouses();
+        setProperties(houses);
+      } catch (error) {
+        console.error('Failed to fetch houses:', error);
+      }
+    };
+    fetchHouses();
   }, []);
 
   return (

@@ -2,12 +2,9 @@
   position: absolute;
   color: hsl(0, 0%, 100%);
   background: hsl(0, 0%, 13%);
-  filter: drop-shadow(0rem 0rem 0.2rem rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 0 0.2rem rgba(0, 0, 0, 0.5));
   border: 0.125rem solid hsl(220, 17%, 37%);
-  padding-bottom: 1.25rem;
-  padding-top: 0.625rem;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding: 0.625rem 1.25rem;
   border-radius: 0.3125rem;
   top: 55%;
   left: 50%;
@@ -15,13 +12,11 @@
 }
 
 .decision-wrapper.true {
-  animation: SlideUp 1s ease-in-out;
-  animation-fill-mode: forwards;
+  animation: SlideUp 1s ease-in-out forwards;
 }
 
 .decision-wrapper.false {
-  animation: SlideDown 1s ease-in-out;
-  animation-fill-mode: forwards;
+  animation: SlideDown 1s ease-in-out forwards;
 }
 
 @keyframes SlideUp {
@@ -127,7 +122,7 @@
 
 .location-pin:hover {
   box-shadow: 0rem 0rem 1.125rem 0.25rem rgba(66, 66, 66, 0.75);
-  background-color: linear-gradient(115deg, hsl(263, 74%, 43%), hsl(0, 0%, 13%), hsl(0, 0%, 13%));
+  background-color: linear-gradient(115deg, hsl(241, 77%, 73%), hsl(0, 0%, 13%), hsl(0, 0%, 13%));
   border-color: hsl(0, 0%, 13%);
 }
 
@@ -145,8 +140,8 @@
 
 .last-location {
   position: absolute;
-  right: 5vw;
-  bottom: 5vw;
+  right: 6rem;
+  bottom: 6rem;
   transition: all 0.5s ease;
 }
 
@@ -180,4 +175,86 @@
 
 .property-spawner li:hover {
   background-color: #efefef;
+}
+
+@media (max-width: 768px) {
+  .decision-wrapper {
+    padding: 0.5rem;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+  }
+
+  .decision-title {
+    font-size: 1rem;
+  }
+
+  .decision-desc {
+    font-size: 1rem;
+  }
+
+  .decision-button-wrapper {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+
+  .tooltip-title {
+    font-size: 1rem;
+  }
+
+  .tooltip-button {
+    width: 5rem;
+    font-size: 0.65rem;
+  }
+
+  .locations {
+    height: auto;
+    width: 100%;
+  }
+
+  .location-pin {
+    height: 1rem;
+    width: 1rem;
+  }
+
+  .last-location {
+    right: 3rem;
+    bottom: 3rem;
+  }
+
+  .property-spawner {
+    top: 4rem;
+    right: 2rem;
+    width: auto;
+    font-size: 0.625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .decision-wrapper {
+    padding: 0.25rem;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -65%);
+  }
+
+  .decision-title {
+    font-size: 0.875rem;
+  }
+
+  .decision-desc {
+    font-size: 0.875rem;
+  }
+
+  .tooltip-button {
+    width: 4.5rem;
+    font-size: 0.5rem;
+  }
+
+  .property-spawner {
+    top: 2rem;
+    right: 1rem;
+    width: auto;
+    font-size: 0.5rem;
+  }
 }

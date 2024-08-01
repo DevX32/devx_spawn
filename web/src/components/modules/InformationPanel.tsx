@@ -33,6 +33,11 @@ const InformationContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  @media (max-width: 768px) {
+    left: 1rem;
+    bottom: 1rem;
+    width: 90%;
+  }
 `;
 
 const InfoRowContainer = styled.div`

@@ -4,10 +4,7 @@
   background: hsl(0, 0%, 13%);
   filter: drop-shadow(0rem 0rem 0.2rem rgba(0, 0, 0, 0.5));
   border: 0.125rem solid hsl(220, 17%, 37%);
-  padding-bottom: 1.25rem;
-  padding-top: 0.625rem;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding: 0.625rem 1.25rem;
   border-radius: 0.3125rem;
   top: 55%;
   left: 50%;
@@ -127,7 +124,7 @@
 
 .location-pin:hover {
   box-shadow: 0rem 0rem 1.125rem 0.25rem rgba(66, 66, 66, 0.75);
-  background-color: linear-gradient(115deg, hsl(263, 74%, 43%), hsl(0, 0%, 13%), hsl(0, 0%, 13%));
+  background-color: linear-gradient(115deg, hsl(241, 77%, 73%), hsl(0, 0%, 13%), hsl(0, 0%, 13%));
   border-color: hsl(0, 0%, 13%);
 }
 
@@ -145,8 +142,8 @@
 
 .last-location {
   position: absolute;
-  right: 5vw;
-  bottom: 5vw;
+  right: 6rem;
+  bottom: 6rem;
   transition: all 0.5s ease;
 }
 
@@ -157,8 +154,8 @@
   font-size: 0.75rem;
   border-radius: 0.3125rem;
   position: absolute;
-  top: 6.25rem;
-  right: 16.875rem;
+  top: 3rem;
+  right: 15.5rem;
   width: 15.625rem;
 }
 

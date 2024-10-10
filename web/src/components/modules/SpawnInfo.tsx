@@ -12,9 +12,9 @@ const Text = styled.div<{ isChooseWhere: boolean }>`
   z-index: 1;
   text-shadow: 0.125rem 0.125rem 0.25rem hsla(0, 0%, 0%, 0.5);
   color: ${(props) => (props.isChooseWhere ? 'var(--background-color)' : 'rgb(33, 33, 33)')};
-  font-size: ${(props) => (props.isChooseWhere ? '1.3vw' : '2.5vw')};
-  top: ${(props) => (props.isChooseWhere ? '5.4vw' : '6.5vw')};
-  left: 13vw;
+  font-size: ${(props) => (props.isChooseWhere ? '1.6rem' : '3rem')};
+  top: ${(props) => (props.isChooseWhere ? '6.2rem' : '3rem')};
+  left: 16rem;
 `;
 
 const SpawnInfo: React.FC<SpawnInfoProps> = ({ text }) => {

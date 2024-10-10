@@ -17,8 +17,8 @@ interface InfoRowProps {
 
 const InformationContainer = styled.div`
   position: absolute;
-  bottom: 7rem;
-  left: 16rem;
+  bottom: 3rem;
+  left: 15.5rem;
   width: 13.75rem;
   height: 13.75rem;
   background: var(--background-color);

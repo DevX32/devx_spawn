@@ -7,7 +7,7 @@ local CAM_TRANSITION_TIME_2 = 1000
 local CLOUD_OPACITY = 0.01
 local MUTE_SOUND = true
 local LAST_LOCATION = nil
-local locales = require("locales.locales")
+local locales = require("locale.locales")
 local locale = locales[Config.Locale] or locales.en
 
 if Config.Framework == "qb-core" then

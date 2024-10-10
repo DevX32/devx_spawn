@@ -1,4 +1,4 @@
-local locales = require("locales.locales")
+local locales = require("locale.locales")
 local locale = locales[Config.Locale] or locales.en
 
 if Config.Framework == "qb-core" then

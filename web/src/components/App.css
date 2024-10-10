@@ -28,21 +28,21 @@ body {
 }
 
 .nui-wrapper.true {
-  animation: SlideUp 1s ease-in-out;
+  animation: SlideUpBig 1s ease-in-out;
   animation-fill-mode: forwards;
 }
 
 .nui-wrapper.false {
-  animation: SlideDown 1s ease-in-out;
+  animation: SlideDownBig 1s ease-in-out;
   animation-fill-mode: forwards;
 }
 
-@keyframes SlideUp {
+@keyframes SlideUpBig {
   0% { top: -68rem; }
   100% { top: 0; }
 }
 
-@keyframes SlideDown {
+@keyframes SlideDownBig {
   0% { top: 0; }
   100% { top: -68rem; }
 }

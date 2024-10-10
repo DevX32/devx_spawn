@@ -24,4 +24,4 @@ files {
   'web/build/**/*'
 }
 
-dependency { "multicharacter"}
+dependency { "qb-multicharacter"}

@@ -1,14 +1,14 @@
-local CAM_Z_OFFSET_1 = 1000
-local CAM_Z_OFFSET_2 = 50
-local CAM_POINT_OFFSET_1 = 75
-local CAM_POINT_OFFSET_2 = 0
-local CAM_TRANSITION_TIME_1 = 500
-local CAM_TRANSITION_TIME_2 = 1000
-local CLOUD_OPACITY = 0.01
-local MUTE_SOUND = true
-local LAST_LOCATION = nil
-local locales = require("locale.locales")
-local locale = locales[Config.Locale] or locales.en
+local CamZOffset1 = 1000
+local CamZOffset2 = 50
+local CamPointOffset1 = 75
+local CamPointOffset2 = 0
+local CamTransitionTime1 = 500
+local CamTransitionTime2 = 1000
+local CloudOpacity = 0.01
+local MuteSound = true
+local LastLocation = nil
+local Locales = require("locale.locales")
+local Locale = Locales[Config.Locale] or Locales.en
 
 if Config.Framework == "qb-core" then
     QBCore = exports[Config.Framework]:GetCoreObject()
@@ -16,12 +16,12 @@ elseif Config.Framework == "esx" then
     ESX = exports.es_extended:getSharedObject()
 end
 
-local function toggleNuiFrame(shouldShow)
+local function ToggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
 
-local function toggleSound(state)
+local function ToggleSound(state)
     if state then
         StartAudioScene("MP_LEADERBOARD_SCENE")
     else
@@ -29,36 +29,36 @@ local function toggleSound(state)
     end
 end
 
-local function clearScreen()
-    SetCloudHatOpacity(CLOUD_OPACITY)
+local function ClearScreen()
+    SetCloudHatOpacity(CloudOpacity)
     SetDrawOrigin(0.0, 0.0, 0.0, 0)
 end
 
-local function initialSetup()
-    toggleSound(MUTE_SOUND)
+local function InitialSetup()
+    ToggleSound(MuteSound)
     SwitchOutPlayer(PlayerPedId(), 0, 1)
 end
 
-local function setupCameraTransition(campos)
-    local cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + CAM_Z_OFFSET_1, 300.00, 0.00, 0.00, 110.00, false, 0)
-    local cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", campos.x, campos.y, campos.z + CAM_Z_OFFSET_2, 300.00, 0.00, 0.00, 110.00, false, 0)
-    PointCamAtCoord(cam1, campos.x, campos.y, campos.z + CAM_POINT_OFFSET_1)
-    SetCamActiveWithInterp(cam1, cam2, CAM_TRANSITION_TIME_1, true, true)
-    if DoesCamExist(cam2) then
-        DestroyCam(cam2, true)
+local function SetupCameraTransition(camPos)
+    local Cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + CamZOffset1, 300.00, 0.00, 0.00, 110.00, false, 0)
+    local Cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + CamZOffset2, 300.00, 0.00, 0.00, 110.00, false, 0)
+    PointCamAtCoord(Cam1, camPos.x, camPos.y, camPos.z + CamPointOffset1)
+    SetCamActiveWithInterp(Cam1, Cam2, CamTransitionTime1, true, true)
+    if DoesCamExist(Cam2) then
+        DestroyCam(Cam2, true)
     end
-    Wait(CAM_TRANSITION_TIME_1)
-    PointCamAtCoord(cam2, campos.x, campos.y, campos.z + CAM_POINT_OFFSET_2)
-    SetCamActiveWithInterp(cam2, cam2, CAM_TRANSITION_TIME_2, true, true)
-    SetEntityCoords(PlayerPedId(), campos.x, campos.y, campos.z)
+    Wait(CamTransitionTime1)
+    PointCamAtCoord(Cam2, camPos.x, camPos.y, camPos.z + CamPointOffset2)
+    SetCamActiveWithInterp(Cam2, Cam2, CamTransitionTime2, true, true)
+    SetEntityCoords(PlayerPedId(), camPos.x, camPos.y, camPos.z)
     DoScreenFadeOut(500)
     Wait(2000)
     FreezeEntityPosition(PlayerPedId(), false)
     RenderScriptCams(false, true, 500, true, true)
-    SetCamActive(cam1, false)
-    DestroyCam(cam1, true)
-    SetCamActive(cam2, false)
-    DestroyCam(cam2, true)
+    SetCamActive(Cam1, false)
+    DestroyCam(Cam1, true)
+    SetCamActive(Cam2, false)
+    DestroyCam(Cam2, true)
     SetEntityVisible(PlayerPedId(), true)
     Wait(500)
     DoScreenFadeIn(250)
@@ -68,7 +68,7 @@ RegisterNetEvent('devx_spawn:initInterface', function()
     DoScreenFadeOut(250)
     Wait(1000)
     DoScreenFadeIn(250)
-    toggleNuiFrame(true)
+    ToggleNuiFrame(true)
     SendReactMessage('setLocations', Config.Locations)
     if Config.Framework == "qb-core" then
         PlayerData = QBCore.Functions.GetPlayerData()
@@ -76,82 +76,82 @@ RegisterNetEvent('devx_spawn:initInterface', function()
         PlayerData = ESX.GetPlayerData()
     end
     if PlayerData then
-        LAST_LOCATION = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
+        LastLocation = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     end
-    local camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + CAM_Z_OFFSET_1, -85.00, 0.00, 0.00, 100.00, false, 0)
-    SetCamActive(camera, true)
+    local Camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + CamZOffset1, -85.00, 0.00, 0.00, 100.00, false, 0)
+    SetCamActive(Camera, true)
     RenderScriptCams(true, false, 1, true, true)
 end)
 
 RegisterNUICallback('hideFrame', function(_, cb)
-    toggleNuiFrame(false)
+    ToggleNuiFrame(false)
     cb({})
 end)
 
 RegisterNUICallback('spawnCharacter', function(data)
-    local camPos
+    local CamPos
     if Config.Framework == "qb-core" then
         PlayerData = QBCore.Functions.GetPlayerData()
     elseif Config.Framework == "esx" then
         PlayerData = ESX.GetPlayerData()
     end
-    local isDead = IsEntityDead(PlayerPedId())
-    if isDead and Config.ForceLastLocation then
-        if LAST_LOCATION then
-            camPos = { x = PlayerData.position.x, y = PlayerData.position.y, z = PlayerData.position.z }
+    local IsDead = IsEntityDead(PlayerPedId())
+    if IsDead and Config.ForceLastLocation then
+        if LastLocation then
+            CamPos = { x = PlayerData.position.x, y = PlayerData.position.y, z = PlayerData.position.z }
         else
-            camPos = { x = -206.19, y = -1013.78, z = 30.13 }
+            CamPos = { x = -206.19, y = -1013.78, z = 30.13 }
         end
         lib.notify({
             title = 'Spawned Last Location',
-            description = locale.ErrorMessages.Dead_Error,
+            description = Locale.ErrorMessages.Dead_Error,
             type = 'inform'
         })
     else
         if data.label == 'Last Location' then
-            if LAST_LOCATION then
-                camPos = { x = PlayerData.position.x, y = PlayerData.position.y, z = PlayerData.position.z }
+            if LastLocation then
+                CamPos = { x = PlayerData.position.x, y = PlayerData.position.y, z = PlayerData.position.z }
             else
-                camPos = { x = -206.19, y = -1013.78, z = 30.13 }
+                CamPos = { x = -206.19, y = -1013.78, z = 30.13 }
             end
         else
-            camPos = { x = data.x, y = data.y, z = data.z }
+            CamPos = { x = data.x, y = data.y, z = data.z }
         end
     end
-    toggleNuiFrame(false)
-    local playerPed = PlayerPedId()
-    FreezeEntityPosition(playerPed, true)
-    SetEntityVisible(playerPed, false, 0)
-    setupCameraTransition(camPos)
+    ToggleNuiFrame(false)
+    local PlayerPed = PlayerPedId()
+    FreezeEntityPosition(PlayerPed, true)
+    SetEntityVisible(PlayerPed, false, 0)
+    SetupCameraTransition(CamPos)
     if Config.Framework == "qb-core" then
         TriggerEvent('qb-clothing:client:loadPlayerClothing', PlayerData.citizenid)
     elseif Config.Framework == "esx" then
         TriggerEvent('skinchanger:loadSkin', PlayerData.skin)
     end
-    FreezeEntityPosition(playerPed, false)
-    SetEntityVisible(playerPed, true, 0)
+    FreezeEntityPosition(PlayerPed, false)
+    SetEntityVisible(PlayerPed, true, 0)
 end)
 
-local function round(number)
+local function Round(number)
     return math.floor(number + 0.5)
 end
 
-local function getCurrentTime()
-    local hour = GetClockHours()
-    local minute = GetClockMinutes()
-    local ampm = "AM"
-    if hour >= 12 then
-        ampm = "PM"
-        if hour > 12 then
-            hour = hour - 12
+local function GetCurrentTime()
+    local Hour = GetClockHours()
+    local Minute = GetClockMinutes()
+    local AmPm = "AM"
+    if Hour >= 12 then
+        AmPm = "PM"
+        if Hour > 12 then
+            Hour = Hour - 12
         end
     end
-    return string.format("%02d:%02d %s", hour, minute, ampm)
+    return string.format("%02d:%02d %s", Hour, Minute, AmPm)
 end
 
-local function getCurrentWeatherInfo()
-    local weatherId = GetPrevWeatherTypeHashName()
-    local weatherMapping = {
+local function GetCurrentWeatherInfo()
+    local WeatherId = GetPrevWeatherTypeHashName()
+    local WeatherMapping = {
         [916995460] = {name = "Clear", temp = 24},
         [-1750463879] = {name = "Extra Sunny", temp = 35},
         [821931868] = {name = "Clouds", temp = 16},
@@ -163,25 +163,25 @@ local function getCurrentWeatherInfo()
         [669657108] = {name = "Blizzard", temp = -7},
         [603685163] = {name = "Light Snow", temp = -4}
     }
-    local weatherName = "Unknown"
-    local temperature = 0
-    if weatherMapping[weatherId] then
-        weatherName = weatherMapping[weatherId].name
-        temperature = weatherMapping[weatherId].temp
+    local WeatherName = "Unknown"
+    local Temperature = 0
+    if WeatherMapping[WeatherId] then
+        WeatherName = WeatherMapping[WeatherId].name
+        Temperature = WeatherMapping[WeatherId].temp
     end
-    return weatherName, temperature
+    return WeatherName, Temperature
 end
 
 RegisterNetEvent('receiveData', function(dateString)
-    local weather, temp = getCurrentWeatherInfo()
-    local info = {
-        time = getCurrentTime(),
+    local Weather, Temp = GetCurrentWeatherInfo()
+    local Info = {
+        time = GetCurrentTime(),
         date = dateString,
-        weather = weather,
-        temp = temp,
-        wind = round(GetWindSpeed())
+        weather = Weather,
+        temp = Temp,
+        wind = Round(GetWindSpeed())
     }
-    SendReactMessage('updateInfo', info)
+    SendReactMessage('updateInfo', Info)
 end)
 
 CreateThread(function()

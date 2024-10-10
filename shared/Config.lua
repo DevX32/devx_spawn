@@ -1,6 +1,5 @@
 Config = {
     Locale = "en",  -- Default locales en = English, np = Nepali
-    Framework = "qb-core", -- "qb-core" or "esx"
     Property = "qb-housing", -- "qb-housing" or "ps-housing"
     ForceLastLocation = true,  -- Set to false if you don't want to force spawn when player isdead at last location
     Locations = {

@@ -9,12 +9,7 @@ local MuteSound = true
 local LastLocation = nil
 local Locales = require("locale.locales")
 local Locale = Locales[Config.Locale] or Locales.en
-
-if Config.Framework == "qb-core" then
-    QBCore = exports[Config.Framework]:GetCoreObject()
-elseif Config.Framework == "esx" then
-    ESX = exports.es_extended:getSharedObject()
-end
+QBCore = exports['qb-core']:GetCoreObject()
 
 local function ToggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
@@ -71,11 +66,7 @@ RegisterNetEvent('devx_spawn:initInterface', function()
     DoScreenFadeIn(250)
     ToggleNuiFrame(true)
     SendReactMessage('setLocations', Config.Locations)
-    if Config.Framework == "qb-core" then
-        PlayerData = QBCore.Functions.GetPlayerData()
-    elseif Config.Framework == "esx" then
-        PlayerData = ESX.GetPlayerData()
-    end
+    PlayerData = QBCore.Functions.GetPlayerData()
     if PlayerData then
         LastLocation = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     end
@@ -92,11 +83,7 @@ end)
 
 RegisterNUICallback('spawnCharacter', function(data)
     local CamPos
-    if Config.Framework == "qb-core" then
-        PlayerData = QBCore.Functions.GetPlayerData()
-    elseif Config.Framework == "esx" then
-        PlayerData = ESX.GetPlayerData()
-    end
+    PlayerData = QBCore.Functions.GetPlayerData()
     local IsDead = IsEntityDead(PlayerPedId())
     if IsDead and Config.ForceLastLocation then
         if LastLocation then
@@ -125,11 +112,7 @@ RegisterNUICallback('spawnCharacter', function(data)
     FreezeEntityPosition(PlayerPed, true)
     SetEntityVisible(PlayerPed, false, 0)
     SetupCameraTransition(CamPos)
-    if Config.Framework == "qb-core" then
-        TriggerEvent('qb-clothing:client:loadPlayerClothing', PlayerData.citizenid)
-    elseif Config.Framework == "esx" then
-        TriggerEvent('skinchanger:loadSkin', PlayerData.skin)
-    end
+    TriggerEvent('qb-clothing:client:loadPlayerClothing', PlayerData.citizenid)
     FreezeEntityPosition(PlayerPed, false)
     SetEntityVisible(PlayerPed, true, 0)
 end)

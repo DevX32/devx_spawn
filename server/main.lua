@@ -1,11 +1,6 @@
 local locales = require("locale.locales")
 local locale = locales[Config.Locale] or locales.en
-
-if Config.Framework == "qb-core" then
-    QBCore = exports[Config.Framework]:GetCoreObject()
-elseif Config.Framework == "esx" then
-    ESX = exports.es_extended:getSharedObject()
-end
+QBCore = exports['qb-core']:GetCoreObject()
 
 local function getFormattedDate()
     local currentDate = os.date("*t")
@@ -21,12 +16,7 @@ AddEventHandler('sendData', function()
 end)
 
 lib.callback.register('devx_spawn:server:getProperty', function(source)
-    local player
-    if Config.Framework == "qb-core" then
-        player = QBCore.Functions.GetPlayer(source)
-    elseif Config.Framework == "esx" then
-        player = ESX.GetPlayerFromId(source)
-    end
+    local player = QBCore.Functions.GetPlayer(source)
     local houseData = {}
     local playerHouses
     if Config.Property == "qb-housing" then

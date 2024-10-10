@@ -40,6 +40,7 @@ local function InitialSetup()
 end
 
 local function SetupCameraTransition(camPos)
+    ClearScreen()
     local Cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + CamZOffset1, 300.00, 0.00, 0.00, 110.00, false, 0)
     local Cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + CamZOffset2, 300.00, 0.00, 0.00, 110.00, false, 0)
     PointCamAtCoord(Cam1, camPos.x, camPos.y, camPos.z + CamPointOffset1)
@@ -78,6 +79,7 @@ RegisterNetEvent('devx_spawn:initInterface', function()
     if PlayerData then
         LastLocation = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     end
+    InitialSetup()
     local Camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + CamZOffset1, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(Camera, true)
     RenderScriptCams(true, false, 1, true, true)

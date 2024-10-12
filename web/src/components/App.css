@@ -1,10 +1,12 @@
 :root {
-  --background-color: hsl(0, 0%, 13%);
-  --border-color: hsl(220, 17%, 37%);
-  --primary-color: hsl(201, 79%, 56%);
+  --background-color: hsl(210, 20%, 10%);
+  --border-color: hsl(220, 15%, 30%);
+  --primary-color: hsl(200, 80%, 50%);
   --shadow-color: rgba(0, 0, 0, 0.5);
   --text-color: hsl(192, 16%, 94%);
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 @font-face {
   font-family: 'DevX32';
@@ -14,7 +16,6 @@
 body {
   user-select: none;
   overflow: hidden;
-  font-family: 'Roboto', sans-serif;
 }
 
 .nui-wrapper {
@@ -48,13 +49,13 @@ body {
 }
 
 .map-shell {
-  background-color: var(--background-color);
-  filter: drop-shadow(0 0 0.2rem var(--shadow-color));
-  border-radius: 0.625rem;
-  padding: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--background-color);
+  border-radius: 0.625rem;
+  padding: 0.75rem;
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .map {

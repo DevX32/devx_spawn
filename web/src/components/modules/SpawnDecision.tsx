@@ -38,17 +38,22 @@ const SpawnDecision: React.FC<SpawnDecisionProps> = ({ visible, chosenData, setV
   };
 
   return (
-    <div className={`decision-wrapper ${visible}`} style={{ visibility: hidden ? 'hidden' : 'visible' }}>
-      <div className='decision-title'>Are You Sure You Want To Spawn At</div>
-      <div className='decision-desc'>{chosenData.label}</div>
+    <div className={`decision-wrapper ${visible}`} style={{ visibility: hidden ? 'hidden' : 'visible', backgroundColor: 'hsl(210, 20%, 10%)', padding: '1.2rem' }}>
+      <div className='decision-title' style={{ fontFamily: 'Oswald', fontSize: '1.2rem', color: '#E0E0E0', textAlign: 'center' }}>
+        Are You Sure You Want To Spawn At
+      </div>
+      <div className='decision-desc' style={{ fontFamily: 'Oswald', fontSize: '1.3rem', color: '#B0B0B0', textAlign: 'center' }}>
+        {chosenData.label}
+      </div>
       <div className='decision-button-wrapper'>
         <Button
           style={{
-            fontFamily: 'Roboto, sans-serif',
-            fontWeight: 'bold',
-            fontSize: '0.938rem',
-            color: 'hsl(206, 100%, 82.35%)',
-            backgroundColor: 'hsl(209.19, 41.57%, 17.45%)',
+            fontFamily: 'Oswald',
+            fontSize: '1.2rem',
+            backgroundColor: 'hsl(210, 20%, 10%)',
+            border: '0.1rem solid hsl(220, 15%, 30%)',
+            borderRadius: '0.5rem',
+            padding: '0.8rem 2rem',
           }}
           variant='contained'
           onClick={() => spawnCharacter(chosenData)}
@@ -57,11 +62,13 @@ const SpawnDecision: React.FC<SpawnDecisionProps> = ({ visible, chosenData, setV
         </Button>
         <Button
           style={{
-            fontFamily: 'Roboto, sans-serif',
-            fontWeight: 'bold',
-            fontSize: '0.938rem',
-            color: 'hsl(0, 0%, 100%)',
-            backgroundColor: 'hsl(230, 7.5%, 15.69%)',
+            fontFamily: 'Oswald',
+            fontSize: '1.2rem',
+            color: '#FF4040',
+            backgroundColor: 'hsl(210, 20%, 10%)',
+            border: '0.1rem solid hsl(220, 15%, 30%)',
+            borderRadius: '0.5rem',
+            padding: '0.8rem 2rem',
           }}
           variant='contained'
           onClick={cancel}

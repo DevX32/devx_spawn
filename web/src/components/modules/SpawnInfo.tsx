@@ -11,7 +11,7 @@ const Text = styled.div<{ isChooseWhere: boolean }>`
   font-style: italic;
   z-index: 1;
   text-shadow: 0.125rem 0.125rem 0.25rem hsla(0, 0%, 0%, 0.5);
-  color: ${(props) => (props.isChooseWhere ? 'var(--background-color)' : 'rgb(33, 33, 33)')};
+  color: ${(props) => (props.isChooseWhere ? 'var(--background-color)' : 'var(--background-color)')};
   font-size: ${(props) => (props.isChooseWhere ? '1.6rem' : '3rem')};
   top: ${(props) => (props.isChooseWhere ? '6.2rem' : '3rem')};
   left: 16rem;

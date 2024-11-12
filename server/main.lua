@@ -18,7 +18,8 @@ end)
 lib.callback.register('devx_spawn:server:getProperty', function(source)
     local player = QBCore.Functions.GetPlayer(source)
     local houseData = {}
-    local playerHouses
+    local playerHouses = {}
+
     if Config.Property == "qb-housing" then
         playerHouses = MySQL.query.await('SELECT house FROM player_houses WHERE citizenid = ?', { player.PlayerData.citizenid })
     elseif Config.Property == "ps-housing" then
@@ -27,10 +28,12 @@ lib.callback.register('devx_spawn:server:getProperty', function(source)
     for i = 1, #playerHouses do
         local name = playerHouses[i].house
         local locationData = MySQL.single.await('SELECT `coords`, `label` FROM houselocations WHERE name = ?', {name})
-        houseData[#houseData+1] = {
-            label = locationData.label,
-            coords = json.decode(locationData.coords).enter
-        }
+        if locationData then
+            houseData[#houseData+1] = {
+                label = locationData.label,
+                coords = json.decode(locationData.coords).enter
+            }
+        end
     end
 
     return houseData

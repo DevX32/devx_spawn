@@ -1,15 +1,5 @@
-local CamZOffset1 = 1000
-local CamZOffset2 = 50
-local CamPointOffset1 = 75
-local CamPointOffset2 = 0
-local CamTransitionTime1 = 500
-local CamTransitionTime2 = 1000
-local CloudOpacity = 0.01
-local MuteSound = true
+local QBCore = exports['qb-core']:GetCoreObject()
 local LastLocation = nil
-local Locales = require("locale.locales")
-local Locale = Locales[Config.Locale] or Locales.en
-QBCore = exports['qb-core']:GetCoreObject()
 
 local function ToggleNuiFrame(shouldShow)
     SetNuiFocus(shouldShow, shouldShow)
@@ -25,27 +15,27 @@ local function ToggleSound(state)
 end
 
 local function ClearScreen()
-    SetCloudHatOpacity(CloudOpacity)
+    SetCloudHatOpacity(0.01)
     SetDrawOrigin(0.0, 0.0, 0.0, 0)
 end
 
 local function InitialSetup()
-    ToggleSound(MuteSound)
+    ToggleSound(true)
     SwitchOutPlayer(PlayerPedId(), 0, 1)
 end
 
 local function SetupCameraTransition(camPos)
     ClearScreen()
-    local Cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + CamZOffset1, 300.00, 0.00, 0.00, 110.00, false, 0)
-    local Cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + CamZOffset2, 300.00, 0.00, 0.00, 110.00, false, 0)
-    PointCamAtCoord(Cam1, camPos.x, camPos.y, camPos.z + CamPointOffset1)
-    SetCamActiveWithInterp(Cam1, Cam2, CamTransitionTime1, true, true)
+    local Cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + 1000, 300.00, 0.00, 0.00, 110.00, false, 0)
+    local Cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + 50, 300.00, 0.00, 0.00, 110.00, false, 0)
+    PointCamAtCoord(Cam1, camPos.x, camPos.y, camPos.z + 75)
+    SetCamActiveWithInterp(Cam1, Cam2, 500, true, true)
     if DoesCamExist(Cam2) then
         DestroyCam(Cam2, true)
     end
-    Wait(CamTransitionTime1)
-    PointCamAtCoord(Cam2, camPos.x, camPos.y, camPos.z + CamPointOffset2)
-    SetCamActiveWithInterp(Cam2, Cam2, CamTransitionTime2, true, true)
+    Wait(500)
+    PointCamAtCoord(Cam2, camPos.x, camPos.y, camPos.z + 0)
+    SetCamActiveWithInterp(Cam2, Cam2, 1000, true, true)
     SetEntityCoords(PlayerPedId(), camPos.x, camPos.y, camPos.z)
     DoScreenFadeOut(500)
     Wait(2000)
@@ -71,7 +61,7 @@ RegisterNetEvent('devx_spawn:initInterface', function()
         LastLocation = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     end
     InitialSetup()
-    local Camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + CamZOffset1, -85.00, 0.00, 0.00, 100.00, false, 0)
+    local Camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + 1000, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(Camera, true)
     RenderScriptCams(true, false, 1, true, true)
 end)
@@ -93,7 +83,7 @@ RegisterNUICallback('spawnCharacter', function(data)
         end
         lib.notify({
             title = 'Spawned Last Location',
-            description = Locale.ErrorMessages.Dead_Error,
+            description = locale('Dead_Error'),
             type = 'inform'
         })
     else

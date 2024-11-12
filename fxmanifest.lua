@@ -25,4 +25,7 @@ files {
   'web/build/**/*'
 }
 
-dependency { "qb-multicharacter"}
+dependencies {
+  'ox_lib',
+  'qb-multicharacter'
+}

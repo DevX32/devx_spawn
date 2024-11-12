@@ -7,7 +7,6 @@ ui_page 'web/build/index.html'
 
 shared_scripts {
   '@ox_lib/init.lua',
-  'locales/**/*',
   'shared/**/*'
 }
 
@@ -21,6 +20,7 @@ server_scripts {
 }
 
 files {
+  'locales/*.json',
   'web/build/index.html',
   'web/build/**/*'
 }

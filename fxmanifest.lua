@@ -1,6 +1,7 @@
 fx_version 'cerulean'
 lua54 'yes'
 game 'gta5'
+ox_lib 'locale'
 
 ui_page 'web/build/index.html'
 

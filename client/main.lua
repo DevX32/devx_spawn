@@ -7,8 +7,6 @@ local CamTransitionTime2 = 1000
 local CloudOpacity = 0.01
 local MuteSound = true
 local LastLocation = nil
-local Locales = require("locale.locales")
-local Locale = Locales[Config.Locale] or Locales.en
 QBCore = exports['qb-core']:GetCoreObject()
 
 local function ToggleNuiFrame(shouldShow)
@@ -93,7 +91,6 @@ RegisterNUICallback('spawnCharacter', function(data)
         end
         lib.notify({
             title = 'Spawned Last Location',
-            description = Locale.ErrorMessages.Dead_Error,
             type = 'inform'
         })
     else

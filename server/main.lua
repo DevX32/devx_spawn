@@ -1,11 +1,11 @@
-local locales = require("locale.locales")
-local locale = locales[Config.Locale] or locales.en
-QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 local function getFormattedDate()
     local currentDate = os.date("*t")
-    local day = locale.Days[currentDate.wday]
-    local month = locale.Months[currentDate.month]
+    local days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
+    local months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}
+    local day = days[currentDate.wday]
+    local month = months[currentDate.month]
     return string.format("%s, %s %d", day, month, currentDate.day)
 end
 

@@ -83,7 +83,7 @@ RegisterNUICallback('spawnCharacter', function(data)
         end
         lib.notify({
             title = 'Spawned Last Location',
-            description = locale('Dead_Error'),
+            description = 'Since you are dead, you are spawned at last location!',
             type = 'inform'
         })
     else

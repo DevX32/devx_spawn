@@ -60,7 +60,7 @@ RegisterNetEvent('devx_spawn:initInterface', function()
     if PlayerData then
         LastLocation = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     end
-    InitialSetup()
+    -- InitialSetup()
     local Camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + 1000, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(Camera, true)
     RenderScriptCams(true, false, 1, true, true)

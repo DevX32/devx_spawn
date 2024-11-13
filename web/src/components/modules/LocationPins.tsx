@@ -14,12 +14,12 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 ))(() => ({
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: '#212121',
-    border: '0.125rem solid hsl(220, 17%, 37%)',
-    borderRadius: '0.125rem',
+    border: '0.18vh solid hsl(220, 17%, 37%)',
+    borderRadius: '0.18vh',
     color: 'hsl(0, 0%, 100%)',
     maxWidth: 220,
-    fontSize: '0.875rem',
-    padding: '0.625rem',
+    fontSize: '1.29vh',
+    padding: '0.92vh',
   },
 }));
 

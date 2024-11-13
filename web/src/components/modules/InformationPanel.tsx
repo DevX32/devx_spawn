@@ -17,33 +17,33 @@ interface InfoRowProps {
 
 const InformationContainer = styled.div`
   position: absolute;
-  bottom: 3rem;
-  left: 15.5rem;
-  width: 13.75rem;
-  height: 13.75rem;
+  bottom: 10vh;
+  left: 12.91vw;
+  width: 11.458vw;
+  height: 20.37vh;
   background: var(--background-color);
-  border: 0.0625rem solid var(--border-color);
-  filter: drop-shadow(0 0 0.125rem var(--shadow-color));
-  border-radius: 0.1875rem;
-  box-shadow: 0 0.125rem 0.125rem var(--shadow-color);
+  border: 0.09vh solid var(--border-color);
+  filter: drop-shadow(0 0 0.185vh var(--shadow-color));
+  border-radius: 0.27vg;
+  box-shadow: 0 0.185vh 0.185vh var(--shadow-color);
   color: var(--text-color);
-  font-size: 0.9375rem;
-  padding: 0.625rem;
+  font-size: 1.38vh;
+  padding: 0.92vh;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.83vw;
 `;
 
 const InfoRowContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.5vw;
 `;
 
 const IconWrapper = styled.div`
-  width: 2rem;
-  height: 2rem;
+  width: 1.66vw;
+  height: 2.96vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,12 +56,12 @@ const IconWrapper = styled.div`
 
 const Title = styled.div`
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.48vh;
 `;
 
 const Description = styled.div`
   opacity: 0.8;
-  font-size: 0.875rem;
+  font-size: 1.29vh;
   color: var(--secondary-text-color);
 `;
 

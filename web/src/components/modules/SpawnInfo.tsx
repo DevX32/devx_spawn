@@ -10,11 +10,11 @@ const Text = styled.div<{ isChooseWhere: boolean }>`
   font-family: 'DevX32';
   font-style: italic;
   z-index: 1;
-  text-shadow: 0.125rem 0.125rem 0.25rem hsla(0, 0%, 0%, 0.5);
+  text-shadow: 0.185vh 0.185vh 0.37vh hsla(0, 0%, 0%, 0.5);
   color: ${(props) => (props.isChooseWhere ? 'var(--background-color)' : 'var(--background-color)')};
-  font-size: ${(props) => (props.isChooseWhere ? '1.6rem' : '3rem')};
-  top: ${(props) => (props.isChooseWhere ? '6.2rem' : '3rem')};
-  left: 16rem;
+  font-size: ${(props) => (props.isChooseWhere ? '2.37vh' : '4.44vh')};
+  top: ${(props) => (props.isChooseWhere ? '14vh' : '9vh')};
+  left: 25.70vh;
 `;
 
 const SpawnInfo: React.FC<SpawnInfoProps> = ({ text }) => {

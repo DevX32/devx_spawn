@@ -6,26 +6,7 @@ local function ToggleNuiFrame(shouldShow)
     SendReactMessage('setVisible', shouldShow)
 end
 
-local function ToggleSound(state)
-    if state then
-        StartAudioScene("MP_LEADERBOARD_SCENE")
-    else
-        StopAudioScene("MP_LEADERBOARD_SCENE")
-    end
-end
-
-local function ClearScreen()
-    SetCloudHatOpacity(0.01)
-    SetDrawOrigin(0.0, 0.0, 0.0, 0)
-end
-
-local function InitialSetup()
-    ToggleSound(true)
-    SwitchOutPlayer(PlayerPedId(), 0, 1)
-end
-
 local function SetupCameraTransition(camPos)
-    ClearScreen()
     local Cam1 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + 1000, 300.00, 0.00, 0.00, 110.00, false, 0)
     local Cam2 = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", camPos.x, camPos.y, camPos.z + 50, 300.00, 0.00, 0.00, 110.00, false, 0)
     PointCamAtCoord(Cam1, camPos.x, camPos.y, camPos.z + 75)
@@ -60,7 +41,6 @@ RegisterNetEvent('devx_spawn:initInterface', function()
     if PlayerData then
         LastLocation = vec3(PlayerData.position.x, PlayerData.position.y, PlayerData.position.z)
     end
-    -- InitialSetup()
     local Camera = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", -206.19, -1013.78, 30.13 + 1000, -85.00, 0.00, 0.00, 100.00, false, 0)
     SetCamActive(Camera, true)
     RenderScriptCams(true, false, 1, true, true)

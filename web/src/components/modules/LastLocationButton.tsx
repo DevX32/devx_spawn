@@ -10,12 +10,11 @@ const LastLocationButton: React.FC<Props> = ({ onClick }) => {
     <div className='last-location'>
       <Button
         style={{
-          width: '8rem',
-          height: '3rem',
-          border: '0.1rem solid hsl(220, 15%, 30%)',
-          fontSize: '1.2rem',
-          right: '120%',
-          top: '3rem',
+          width: '13.66vh',
+          height: '4.44vh',
+          border: '0.14vh solid hsl(220, 15%, 30%)',
+          fontSize: '1.77vh',
+          top: '4.44vh',
           fontFamily: 'DevX32',
           backgroundColor: 'hsl(210, 20%, 10%)',
           color: 'hsl(192, 16%, 94%)',

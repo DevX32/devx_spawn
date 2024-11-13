@@ -39,13 +39,13 @@ body {
 }
 
 @keyframes SlideUpBig {
-  0% { top: -68rem; }
+  0% { top: -100.74vh}
   100% { top: 0; }
 }
 
 @keyframes SlideDownBig {
   0% { top: 0; }
-  100% { top: -68rem; }
+  100% { top: -100.74vh; }
 }
 
 .map-shell {
@@ -53,14 +53,14 @@ body {
   align-items: center;
   justify-content: center;
   background-color: var(--background-color);
-  border-radius: 0.625rem;
-  padding: 0.75rem;
-  box-shadow: 0 4px 8px var(--shadow-color);
+  border-radius: 0.92vh;
+  padding: 1.11vh;
+  box-shadow: 0 0.37vh 0.74vh var(--shadow-color);
 }
 
 .map {
-  height: 55.125rem;
-  width: 89.5rem;
+  height: 81.66vh;
+  width: 74.58vw;
   position: relative;
   object-fit: cover;
 }
@@ -69,7 +69,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 55.125rem;
-  width: 89.5rem;
-  border-radius: 0.3125rem;
+  height: 81.66vh;
+  width: 74.58vw;
+  border-radius: 0.46vh;
 }

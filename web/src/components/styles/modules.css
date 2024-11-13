@@ -142,34 +142,3 @@
   bottom: 14.88vh;
   transition: all 0.5s ease;
 }
-
-.property-spawner {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-size: 0.62vw;
-  border-radius: 0.46vh;
-  position: absolute;
-  top: 9.88vh;
-  right: 12.91vw;
-  width: 13.02vw;
-}
-
-.property-spawner h2 {
-  margin: 0 0 0.52vw;
-}
-
-.property-spawner ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.property-spawner li {
-  cursor: pointer;
-  padding: 0.09vh;
-  border-bottom: 0.09vh solid #ddd;
-}
-
-.property-spawner li:hover {
-  background-color: var(--text-color);
-}

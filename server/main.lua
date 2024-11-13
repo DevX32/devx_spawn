@@ -1,5 +1,3 @@
-local QBCore = exports['qb-core']:GetCoreObject()
-
 local function getFormattedDate()
     local currentDate = os.date("*t")
     local days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
@@ -14,25 +12,3 @@ AddEventHandler('sendData', function()
     local dateString = getFormattedDate()
     TriggerClientEvent('receiveData', -1, dateString)
 end)
-
-if Config.Property then
-    lib.callback.register('devx_spawn:server:getProperty', function(source)
-        local player = QBCore.Functions.GetPlayer(source)
-        local houseData = {}
-        local playerHouses = {}
-
-        playerHouses = MySQL.query.await(Config.Property == "qb-housing" and 'SELECT house FROM player_houses WHERE citizenid = ?' or 'SELECT * FROM properties WHERE owner_citizenid = ?', { player.PlayerData.citizenid })
-        for i = 1, #playerHouses do
-            local name = playerHouses[i].house
-            local locationData = MySQL.single.await('SELECT `coords`, `label` FROM houselocations WHERE name = ?', {name})
-            if locationData then
-                houseData[#houseData+1] = {
-                    label = locationData.label,
-                    coords = json.decode(locationData.coords).enter
-                }
-            end
-        end
-
-        return houseData
-    end)
-end

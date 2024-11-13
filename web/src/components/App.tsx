@@ -8,8 +8,6 @@ import LocationPins from './modules/LocationPins';
 import SpawnDecision from './modules/SpawnDecision';
 import LastLocationButton from './modules/LastLocationButton';
 import InformationPanel from './modules/InformationPanel';
-import PropertySpawner from './modules/PropertySpawner';
-import { getHouses } from '../utils/getHouses';
 
 debugData([{ action: 'setVisible', data: true }]);
 
@@ -17,12 +15,6 @@ interface LocationsInterface {
   top: number;
   left: number;
   label: string;
-}
-
-interface Property {
-  id: string;
-  name: string;
-  location: { x: number; y: number; z: number };
 }
 
 const App: React.FC = () => {
@@ -46,16 +38,10 @@ const App: React.FC = () => {
     { top: 490, left: 230, label: 'Paleto Bay' },
     { top: 340, left: 1020, label: 'Mirror Park' },
   ]);
-  const [properties, setProperties] = useState<Property[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
 
   useNuiEvent('setVisible', (data) => setShow(data));
   useNuiEvent('setLocations', (data) => setLocations(data));
   useNuiEvent('infoPanel', (data) => setInfoData(data));
-  useNuiEvent('setProperties', (data) => setProperties(data));
-  useNuiEvent('spawnProperty', (property) => setSelectedProperty(property));
-
   const lastLocation = () => {
     setChosenData({ label: 'Last Location', x: 0, y: 0, z: 0 });
     setVisible(true);
@@ -71,23 +57,6 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handlePropertySelect = (property: Property) => {
-    setSelectedProperty(property);
-    setVisible(true);
-  };
-
-  useEffect(() => {
-    const fetchHouses = async () => {
-      try {
-        const houses = await getHouses();
-        setProperties(houses);
-      } catch (error) {
-        console.error('Failed to fetch houses:', error);
-      }
-    };
-    fetchHouses();
-  }, []);
-
   return (
     <div className={`nui-wrapper ${show}`} style={{ visibility: showHidden ? 'hidden' : 'visible' }}>
       <SpawnInfo text="CHOOSE WHERE TO APPEAR" />
@@ -95,7 +64,6 @@ const App: React.FC = () => {
       <InformationPanel {...infoData} />
       <MapComponent />
       <LocationPins locations={locations} setVisible={setVisible} />
-      <PropertySpawner properties={properties} onSelect={handlePropertySelect} />
       <SpawnDecision
         visible={visible}
         chosenData={chosenData}

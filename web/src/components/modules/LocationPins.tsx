@@ -72,7 +72,7 @@ const LocationPins: React.FC<LocationPinsProps> = ({ locations, setVisible }) =>
         >
           <div 
             className='location-pin' 
-            style={{ top: `${data.top}px`, left: `${data.left}px` }} 
+            style={{ top: `${data.top}vh`, left: `${data.left}vw` }} 
           />
         </HtmlTooltip>
       ))}

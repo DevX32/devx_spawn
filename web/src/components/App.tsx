@@ -32,11 +32,11 @@ const App: React.FC = () => {
     wind: '1',
   });
   const [locations, setLocations] = useState<LocationsInterface[]>([
-    { top: 670, left: 1085, label: 'Pier' },
-    { top: 612, left: 920, label: 'Richman Hotel' },
-    { top: 260, left: 530, label: 'Sandy Shores' },
-    { top: 490, left: 230, label: 'Paleto Bay' },
-    { top: 340, left: 1020, label: 'Mirror Park' },
+    { top: 62.03, left: 56.51, label: 'Pier' },
+    { top: 56.66, left: 47.91, label: 'Richman Hotel' },
+    { top: 24.07, left: 27.60, label: 'Sandy Shores' },
+    { top: 45.37, left: 11.97, label: 'Paleto Bay' },
+    { top: 31.48, left: 53.12, label: 'Mirror Park' },
   ]);
 
   useNuiEvent('setVisible', (data) => setShow(data));
